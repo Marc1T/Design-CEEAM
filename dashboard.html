@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - CEEAM</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #172d45;
@@ -12,11 +12,16 @@
             --accent: #f59f24;
             --accent-hover: #e08d15;
             --success: #22c55e;
+            --info: #3b82f6;
+            --warning: #f59e0b;
             --bg-main: #f8fafc;
             --bg-card: #ffffff;
             --text-primary: #0f172a;
             --text-secondary: #64748b;
             --border: #e2e8f0;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
         }
 
         * {
@@ -30,6 +35,7 @@
             color: var(--text-primary);
             line-height: 1.6;
             background: var(--bg-main);
+            overflow-x: hidden;
         }
 
         /* Header */
@@ -39,45 +45,45 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            box-shadow: var(--shadow-sm);
         }
 
         .nav-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 80px;
+            height: 70px;
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.75rem;
             text-decoration: none;
         }
 
         .logo-icon {
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.75rem;
+            font-size: 1.5rem;
             font-weight: 800;
         }
 
         .logo-text {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 800;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
             color: var(--primary);
-            letter-spacing: 0.05em;
+            letter-spacing: 0.02em;
         }
 
         .nav-menu {
@@ -87,10 +93,11 @@
         }
 
         .nav-link {
-            padding: 0.75rem 1.5rem;
+            padding: 0.6rem 1.2rem;
             color: var(--text-secondary);
             text-decoration: none;
             font-weight: 500;
+            font-size: 0.95rem;
             border-radius: 8px;
             transition: all 0.3s ease;
         }
@@ -108,13 +115,39 @@
         .header-actions {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.75rem;
+        }
+
+        .lang-switcher {
+            display: flex;
+            background: var(--bg-main);
+            border-radius: 8px;
+            padding: 4px;
+            gap: 4px;
+        }
+
+        .lang-btn {
+            padding: 0.4rem 0.8rem;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 0.85rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn.active {
+            background: white;
+            color: var(--primary);
+            box-shadow: var(--shadow-sm);
         }
 
         .notification-btn {
             position: relative;
-            width: 44px;
-            height: 44px;
+            width: 40px;
+            height: 40px;
             border-radius: 10px;
             background: var(--bg-main);
             border: none;
@@ -123,10 +156,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 1.2rem;
         }
 
         .notification-btn:hover {
             background: var(--accent);
+            transform: scale(1.05);
         }
 
         .notification-badge {
@@ -135,10 +170,10 @@
             right: -4px;
             background: #ef4444;
             color: white;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: 700;
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -149,8 +184,8 @@
         .user-profile {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            padding: 0.5rem 1rem;
+            gap: 0.6rem;
+            padding: 0.4rem 0.8rem;
             background: var(--bg-main);
             border-radius: 50px;
             cursor: pointer;
@@ -158,12 +193,12 @@
         }
 
         .user-profile:hover {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow-md);
         }
 
         .user-avatar {
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
             display: flex;
@@ -171,6 +206,7 @@
             justify-content: center;
             color: white;
             font-weight: 700;
+            font-size: 0.9rem;
         }
 
         .user-info {
@@ -180,35 +216,61 @@
 
         .user-name {
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
         .user-role {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--text-secondary);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            width: 40px;
+            height: 40px;
+            background: var(--bg-main);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.3rem;
         }
 
         /* Hero */
         .hero-dashboard {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-            padding: 3rem 2rem;
+            padding: 2.5rem 1rem;
             color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-dashboard::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(245,159,36,0.15) 0%, transparent 70%);
+            border-radius: 50%;
         }
 
         .hero-content {
             max-width: 1400px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
         .hero-content h1 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 800;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
             margin-bottom: 0.5rem;
         }
 
         .hero-content p {
-            font-size: 1.1rem;
+            font-size: 1rem;
             opacity: 0.9;
         }
 
@@ -216,7 +278,7 @@
         .main-content {
             max-width: 1400px;
             margin: -2rem auto 0;
-            padding: 0 2rem 4rem;
+            padding: 0 1rem 3rem;
             position: relative;
             z-index: 10;
         }
@@ -224,17 +286,17 @@
         /* Stats Grid */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 2.5rem;
         }
 
         .stat-card {
             background: white;
-            border-radius: 20px;
-            padding: 2rem;
-            border: 1px solid var(--border);
-            transition: all 0.4s ease;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
@@ -244,78 +306,77 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
+            right: 0;
             height: 4px;
-            background: linear-gradient(90deg, var(--accent) 0%, #e08d15 100%);
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .stat-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
         }
 
         .stat-card:hover::before {
-            transform: scaleX(1);
+            opacity: 1;
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
         }
 
         .stat-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 16px;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.75rem;
-            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
         }
 
-        .stat-icon.blue { background: linear-gradient(135deg, rgba(23,45,69,0.1) 0%, rgba(23,45,69,0.05) 100%); }
-        .stat-icon.orange { background: linear-gradient(135deg, rgba(245,159,36,0.1) 0%, rgba(245,159,36,0.05) 100%); }
-        .stat-icon.green { background: linear-gradient(135deg, rgba(34,197,94,0.1) 0%, rgba(34,197,94,0.05) 100%); }
-        .stat-icon.purple { background: linear-gradient(135deg, rgba(168,85,247,0.1) 0%, rgba(168,85,247,0.05) 100%); }
+        .stat-icon.blue { background: rgba(59, 130, 246, 0.1); }
+        .stat-icon.orange { background: rgba(245, 159, 36, 0.1); }
+        .stat-icon.green { background: rgba(34, 197, 94, 0.1); }
+        .stat-icon.purple { background: rgba(168, 85, 247, 0.1); }
 
         .stat-value {
-            font-family: 'Poppins', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--primary);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
             margin-bottom: 0.25rem;
         }
 
         .stat-label {
             color: var(--text-secondary);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
         }
 
         .stat-trend {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.25rem;
             font-size: 0.85rem;
             font-weight: 600;
-            padding: 0.25rem 0.75rem;
-            border-radius: 999px;
-            margin-top: 0.75rem;
-            background: rgba(34,197,94,0.1);
             color: var(--success);
         }
 
         /* Content Grid */
         .content-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 2rem;
+            grid-template-columns: 1fr 400px;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
         }
 
-        /* Card */
         .card {
             background: white;
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 2rem;
-            margin-bottom: 2rem;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 1.5rem;
         }
 
         .card-header {
@@ -323,13 +384,15 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--bg-main);
         }
 
         .card-title {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.5rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
             font-weight: 700;
-            color: var(--primary);
+            color: var(--text-primary);
         }
 
         .card-link {
@@ -342,95 +405,354 @@
 
         .card-link:hover {
             color: var(--accent-hover);
+            transform: translateX(4px);
         }
 
-        /* Activity Item */
-        .activity-item {
-            display: flex;
-            gap: 1.5rem;
-            padding: 1.5rem;
+        /* NEW ACTIVITIES DESIGN */
+        .activities-modern {
+            display: grid;
+            gap: 1.25rem;
+        }
+
+        .activity-card-modern {
+            background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
             border-radius: 16px;
-            border: 1px solid var(--border);
-            margin-bottom: 1rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
+            padding: 1.25rem;
+            border: 2px solid var(--border);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
         }
 
-        .activity-item:hover {
+        .activity-card-modern::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--accent) 0%, var(--primary) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .activity-card-modern:hover {
+            transform: translateX(8px);
             border-color: var(--accent);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-            transform: translateY(-4px);
+            box-shadow: -8px 0 24px rgba(245, 159, 36, 0.15);
         }
 
-        .activity-date {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            border-radius: 16px;
+        .activity-card-modern:hover::before {
+            opacity: 1;
+        }
+
+        .activity-header-modern {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .activity-date-modern {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: 12px;
+            padding: 0.75rem;
+            min-width: 70px;
+            text-align: center;
             color: white;
-            flex-shrink: 0;
+            box-shadow: var(--shadow-md);
         }
 
-        .activity-month {
-            font-size: 0.75rem;
-            font-weight: 600;
+        .activity-month-modern {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 700;
             text-transform: uppercase;
+            letter-spacing: 0.05em;
+            opacity: 0.9;
         }
 
-        .activity-day {
-            font-size: 1.75rem;
+        .activity-day-modern {
+            display: block;
+            font-size: 1.8rem;
             font-weight: 800;
-            font-family: 'Poppins', sans-serif;
+            line-height: 1;
+            margin-top: 0.25rem;
         }
 
-        .activity-content {
+        .activity-content-modern {
             flex: 1;
         }
 
-        .activity-title {
-            font-weight: 700;
-            font-size: 1.05rem;
-            color: var(--primary);
+        .activity-category {
+            display: inline-block;
+            padding: 0.3rem 0.75rem;
+            background: rgba(245, 159, 36, 0.1);
+            color: var(--accent);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
             margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
         }
 
-        .activity-meta {
+        .activity-title-modern {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+        }
+
+        .activity-meta-modern {
             display: flex;
-            gap: 1.5rem;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
+            flex-wrap: wrap;
+            gap: 1rem;
             margin-bottom: 1rem;
         }
 
-        .btn-register {
-            padding: 0.625rem 1.5rem;
-            background: var(--accent);
+        .activity-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .activity-footer-modern {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .activity-participants {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .participants-avatars {
+            display: flex;
+            margin-left: -8px;
+        }
+
+        .participant-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid white;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            margin-left: -8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+
+        .participants-count {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-left: 0.5rem;
+        }
+
+        .btn-register-modern {
+            padding: 0.6rem 1.5rem;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
             color: white;
             border: none;
             border-radius: 10px;
             font-weight: 600;
+            font-size: 0.9rem;
             cursor: pointer;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(245, 159, 36, 0.3);
+        }
+
+        .btn-register-modern:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(245, 159, 36, 0.4);
+        }
+
+        .btn-register-modern:active {
+            transform: translateY(0);
+        }
+
+        /* Integration Guides Widget */
+        .guides-widget {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            padding: 1.5rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        .guides-widget::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .guides-header {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 1rem;
+        }
+
+        .guides-header h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .guides-header p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .guides-list {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .guide-item {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .guide-item:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateX(8px);
+        }
+
+        .guide-icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .guide-content {
+            flex: 1;
+        }
+
+        .guide-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .guide-status {
+            font-size: 0.75rem;
+            opacity: 0.8;
+        }
+
+        .guide-arrow {
+            font-size: 1.2rem;
+            opacity: 0.6;
+        }
+
+        /* Progress Tracker */
+        .progress-widget {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 1.5rem;
+        }
+
+        .progress-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .progress-header h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-stats {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .progress-item {
+            margin-bottom: 1.25rem;
+        }
+
+        .progress-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-name {
+            font-weight: 600;
             font-size: 0.9rem;
         }
 
-        .btn-register:hover {
-            background: var(--accent-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(245,159,36,0.3);
+        .progress-percent {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--accent);
         }
 
-        /* Announcement */
-        .announcement-item {
-            padding: 1.25rem;
-            border-radius: 12px;
+        .progress-bar {
+            height: 8px;
             background: var(--bg-main);
-            border-left: 4px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--accent-hover) 100%);
+            border-radius: 10px;
+            transition: width 1s ease;
+        }
+
+        /* Announcements */
+        .announcement-item {
+            padding: 1rem;
+            border-left: 3px solid var(--border);
             margin-bottom: 1rem;
+            background: var(--bg-main);
+            border-radius: 8px;
             transition: all 0.3s ease;
             cursor: pointer;
         }
@@ -438,16 +760,21 @@
         .announcement-item:hover {
             border-left-color: var(--accent);
             background: white;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            box-shadow: var(--shadow-sm);
         }
 
-        .announcement-item.high { border-left-color: #ef4444; }
-        .announcement-item.medium { border-left-color: var(--accent); }
+        .announcement-item.high {
+            border-left-color: #ef4444;
+        }
+
+        .announcement-item.medium {
+            border-left-color: var(--warning);
+        }
 
         .announcement-title {
             font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.25rem;
+            color: var(--text-primary);
         }
 
         .announcement-time {
@@ -458,38 +785,37 @@
         /* Quick Actions */
         .quick-actions {
             display: grid;
+            grid-template-columns: repeat(2, 1fr);
             gap: 1rem;
         }
 
         .quick-action-btn {
-            width: 100%;
             padding: 1.25rem;
-            background: linear-gradient(135deg, rgba(245,159,36,0.1) 0%, rgba(245,159,36,0.05) 100%);
-            border: 1px solid rgba(245,159,36,0.2);
+            background: var(--bg-main);
+            border: 2px solid var(--border);
             border-radius: 12px;
-            color: var(--primary);
-            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            text-align: left;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 1rem;
-            font-family: 'Outfit', sans-serif;
+            gap: 0.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
         }
 
         .quick-action-btn:hover {
-            background: var(--accent);
-            color: white;
+            background: white;
             border-color: var(--accent);
-            transform: translateX(4px);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
         }
 
         /* Footer */
         .footer {
-            background: #0a0a0a;
+            background: var(--primary);
             color: white;
-            padding: 4rem 2rem 2rem;
+            padding: 3rem 1rem 1.5rem;
             margin-top: 4rem;
         }
 
@@ -500,48 +826,46 @@
 
         .footer-content {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1.5fr;
-            gap: 4rem;
-            margin-bottom: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
         }
 
         .footer-logo {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
         }
 
         .footer-logo-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            width: 45px;
+            height: 45px;
+            background: var(--accent);
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            color: white;
             font-weight: 800;
+            font-size: 1.5rem;
         }
 
         .footer-logo-text {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 800;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
         }
 
         .footer-description {
-            color: rgba(255,255,255,0.7);
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
+            opacity: 0.8;
+            font-size: 0.9rem;
+            line-height: 1.6;
         }
 
         .footer-title {
-            font-size: 1.25rem;
             font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
         }
 
         .footer-links {
@@ -553,22 +877,191 @@
         }
 
         .footer-links a {
-            color: rgba(255,255,255,0.7);
+            color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
-            transition: all 0.3s ease;
-            display: inline-block;
+            transition: color 0.3s ease;
         }
 
         .footer-links a:hover {
             color: var(--accent);
-            transform: translateX(5px);
         }
 
         .footer-bottom {
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
             text-align: center;
-            color: rgba(255,255,255,0.5);
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+
+        /* Calendar Widget */
+        .calendar-widget {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 1.5rem;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .calendar-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .calendar-nav {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .calendar-nav-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .calendar-nav-btn:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+
+        .calendar-month-label {
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .calendar-day-header {
+            text-align: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            padding: 0.5rem 0;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .calendar-day:hover {
+            background: var(--bg-main);
+        }
+
+        .calendar-day.today {
+            background: var(--primary);
+            color: white;
+            font-weight: 700;
+        }
+
+        .calendar-day.has-event {
+            background: rgba(245, 159, 36, 0.1);
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .calendar-day.has-event::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        .calendar-day.other-month {
+            color: var(--text-secondary);
+            opacity: 0.4;
+        }
+
+        .calendar-day.disabled {
+            color: var(--text-secondary);
+            opacity: 0.3;
+            cursor: default;
+        }
+
+        .calendar-events-preview {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .calendar-event-item {
+            display: flex;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: var(--bg-main);
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .calendar-event-item:hover {
+            background: white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .calendar-event-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-top: 0.4rem;
+            flex-shrink: 0;
+        }
+
+        .calendar-event-dot.orange { background: var(--accent); }
+        .calendar-event-dot.blue { background: var(--info); }
+        .calendar-event-dot.green { background: var(--success); }
+
+        .calendar-event-details {
+            flex: 1;
+        }
+
+        .calendar-event-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .calendar-event-time {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
         }
 
         /* Responsive */
@@ -576,30 +1069,79 @@
             .content-grid {
                 grid-template-columns: 1fr;
             }
-            .footer-content {
-                grid-template-columns: 1fr 1fr;
-            }
         }
 
         @media (max-width: 768px) {
             .nav-menu {
                 display: none;
             }
-            .stats-grid {
-                grid-template-columns: 1fr;
+
+            .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
+
             .hero-content h1 {
-                font-size: 2rem;
+                font-size: 1.6rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .stat-value {
+                font-size: 1.6rem;
+            }
+
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .user-info {
+                display: none;
+            }
+
+            .lang-switcher {
+                display: none;
+            }
+
+            .activity-header-modern {
+                flex-direction: column;
+            }
+
+            .activity-date-modern {
+                width: 100%;
+                min-width: auto;
+            }
+
+            .activity-footer-modern {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+
+            .btn-register-modern {
+                width: 100%;
             }
         }
 
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
@@ -607,14 +1149,21 @@
             }
         }
 
-        .stat-card {
-            animation: fadeInUp 0.6s ease forwards;
+        .stat-card,
+        .card,
+        .activity-card-modern {
+            animation: fadeInUp 0.6s ease-out;
+            animation-fill-mode: both;
         }
 
         .stat-card:nth-child(1) { animation-delay: 0.1s; }
         .stat-card:nth-child(2) { animation-delay: 0.2s; }
         .stat-card:nth-child(3) { animation-delay: 0.3s; }
         .stat-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .activity-card-modern:nth-child(1) { animation-delay: 0.2s; }
+        .activity-card-modern:nth-child(2) { animation-delay: 0.3s; }
+        .activity-card-modern:nth-child(3) { animation-delay: 0.4s; }
     </style>
 </head>
 <body>
@@ -627,13 +1176,18 @@
             </a>
 
             <ul class="nav-menu">
-                <li><a href="dashboard.html" class="nav-link active">Dashboard</a></li>
-                <li><a href="#" class="nav-link">Activités</a></li>
-                <li><a href="#" class="nav-link">Lauréats</a></li>
-                <li><a href="#" class="nav-link">École</a></li>
+                <li><a href="dashboard.html" class="nav-link active" data-lang-fr="Dashboard" data-lang-en="Dashboard">Dashboard</a></li>
+                <li><a href="#" class="nav-link" data-lang-fr="Activités" data-lang-en="Activities">Activités</a></li>
+                <li><a href="#" class="nav-link" data-lang-fr="Lauréats" data-lang-en="Alumni">Lauréats</a></li>
+                <li><a href="#" class="nav-link" data-lang-fr="École" data-lang-en="School">École</a></li>
             </ul>
 
             <div class="header-actions">
+                <div class="lang-switcher">
+                    <button class="lang-btn active" onclick="switchLanguage('fr')">FR</button>
+                    <button class="lang-btn" onclick="switchLanguage('en')">EN</button>
+                </div>
+
                 <button class="notification-btn" onclick="window.location.href='notifications.html'">
                     🔔
                     <span class="notification-badge">3</span>
@@ -643,9 +1197,11 @@
                     <div class="user-avatar">YB</div>
                     <div class="user-info">
                         <div class="user-name">Youssef B.</div>
-                        <div class="user-role">Étudiant</div>
+                        <div class="user-role" data-lang-fr="Étudiant" data-lang-en="Student">Étudiant</div>
                     </div>
                 </div>
+
+                <button class="mobile-menu-btn">☰</button>
             </div>
         </nav>
     </header>
@@ -653,8 +1209,8 @@
     <!-- Hero -->
     <section class="hero-dashboard">
         <div class="hero-content">
-            <h1>Bienvenue, Youssef ! 👋</h1>
-            <p>Voici un aperçu de vos activités sur la plateforme CEEAM</p>
+            <h1 data-lang-fr="Bienvenue, Youssef ! 👋" data-lang-en="Welcome, Youssef ! 👋">Bienvenue, Youssef ! 👋</h1>
+            <p data-lang-fr="Voici un aperçu de vos activités sur la plateforme CEEAM" data-lang-en="Here's an overview of your activities on the CEEAM platform">Voici un aperçu de vos activités sur la plateforme CEEAM</p>
         </div>
     </section>
 
@@ -663,31 +1219,39 @@
         <!-- Stats -->
         <div class="stats-grid">
             <div class="stat-card">
-                <div class="stat-icon blue">📚</div>
+                <div class="stat-header">
+                    <div class="stat-icon blue">📚</div>
+                </div>
                 <div class="stat-value">24</div>
-                <div class="stat-label">Guides consultés</div>
+                <div class="stat-label" data-lang-fr="Guides consultés" data-lang-en="Guides viewed">Guides consultés</div>
                 <div class="stat-trend">↑ 12%</div>
             </div>
 
             <div class="stat-card">
-                <div class="stat-icon orange">🎯</div>
+                <div class="stat-header">
+                    <div class="stat-icon orange">🎯</div>
+                </div>
                 <div class="stat-value">12</div>
-                <div class="stat-label">Activités participées</div>
+                <div class="stat-label" data-lang-fr="Activités participées" data-lang-en="Activities participated">Activités participées</div>
                 <div class="stat-trend">↑ 8%</div>
             </div>
 
             <div class="stat-card">
-                <div class="stat-icon green">✅</div>
-                <div class="stat-value">3/3</div>
-                <div class="stat-label">Taux de participation</div>
-                <div class="stat-trend">100%</div>
+                <div class="stat-header">
+                    <div class="stat-icon purple">👥</div>
+                </div>
+                <div class="stat-value">18</div>
+                <div class="stat-label" data-lang-fr="Contacts lauréats" data-lang-en="Alumni contacts">Contacts lauréats</div>
+                <div class="stat-trend">↑ 5</div>
             </div>
 
             <div class="stat-card">
-                <div class="stat-icon purple">👥</div>
-                <div class="stat-value">18</div>
-                <div class="stat-label">Contacts lauréats</div>
-                <div class="stat-trend">↑ 5</div>
+                <div class="stat-header">
+                    <div class="stat-icon green">📅</div>
+                </div>
+                <div class="stat-value">5</div>
+                <div class="stat-label" data-lang-fr="Événements ce mois" data-lang-en="Events this month">Événements ce mois</div>
+                <div class="stat-trend">↑ 2</div>
             </div>
         </div>
 
@@ -695,58 +1259,229 @@
         <div class="content-grid">
             <!-- Left Column -->
             <div>
-                <!-- Activities -->
+                <!-- NEW ACTIVITIES SECTION -->
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="card-title">Activités à venir</h2>
-                        <a href="#" class="card-link">Voir tout →</a>
+                        <h2 class="card-title" data-lang-fr="Activités à venir" data-lang-en="Upcoming Activities">Activités à venir</h2>
+                        <a href="#" class="card-link" data-lang-fr="Voir tout →" data-lang-en="View all →">Voir tout →</a>
                     </div>
 
-                    <div class="activity-item">
-                        <div class="activity-date">
-                            <span class="activity-month">FÉV</span>
-                            <span class="activity-day">15</span>
-                        </div>
-                        <div class="activity-content">
-                            <div class="activity-title">Atelier Entrepreneuriat</div>
-                            <div class="activity-meta">
-                                <span>⏰ 14:00</span>
-                                <span>📍 Amphi A</span>
-                                <span>👥 45 participants</span>
+                    <div class="activities-modern">
+                        <div class="activity-card-modern">
+                            <div class="activity-header-modern">
+                                <div class="activity-date-modern">
+                                    <span class="activity-month-modern" data-lang-fr="FÉV" data-lang-en="FEB">FÉV</span>
+                                    <span class="activity-day-modern">15</span>
+                                </div>
+                                <div class="activity-content-modern">
+                                    <span class="activity-category" data-lang-fr="ATELIER" data-lang-en="WORKSHOP">ATELIER</span>
+                                    <h3 class="activity-title-modern" data-lang-fr="Atelier Entrepreneuriat" data-lang-en="Entrepreneurship Workshop">Atelier Entrepreneuriat</h3>
+                                    <div class="activity-meta-modern">
+                                        <span class="activity-meta-item">⏰ 14:00</span>
+                                        <span class="activity-meta-item">📍 Amphi A</span>
+                                        <span class="activity-meta-item">⏱️ 2h30</span>
+                                    </div>
+                                </div>
                             </div>
-                            <button class="btn-register">S'inscrire</button>
+                            <div class="activity-footer-modern">
+                                <div class="activity-participants">
+                                    <div class="participants-avatars">
+                                        <div class="participant-avatar">A</div>
+                                        <div class="participant-avatar">M</div>
+                                        <div class="participant-avatar">S</div>
+                                        <div class="participant-avatar">+</div>
+                                    </div>
+                                    <span class="participants-count" data-lang-fr="45 inscrits" data-lang-en="45 registered">45 inscrits</span>
+                                </div>
+                                <button class="btn-register-modern" data-lang-fr="S'inscrire" data-lang-en="Register">S'inscrire</button>
+                            </div>
+                        </div>
+
+                        <div class="activity-card-modern">
+                            <div class="activity-header-modern">
+                                <div class="activity-date-modern">
+                                    <span class="activity-month-modern" data-lang-fr="FÉV" data-lang-en="FEB">FÉV</span>
+                                    <span class="activity-day-modern">22</span>
+                                </div>
+                                <div class="activity-content-modern">
+                                    <span class="activity-category" data-lang-fr="NETWORKING" data-lang-en="NETWORKING">NETWORKING</span>
+                                    <h3 class="activity-title-modern" data-lang-fr="Networking Lauréats" data-lang-en="Alumni Networking">Networking Lauréats</h3>
+                                    <div class="activity-meta-modern">
+                                        <span class="activity-meta-item">⏰ 18:30</span>
+                                        <span class="activity-meta-item">📍 Salle des fêtes</span>
+                                        <span class="activity-meta-item">⏱️ 3h</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="activity-footer-modern">
+                                <div class="activity-participants">
+                                    <div class="participants-avatars">
+                                        <div class="participant-avatar">L</div>
+                                        <div class="participant-avatar">K</div>
+                                        <div class="participant-avatar">+</div>
+                                    </div>
+                                    <span class="participants-count" data-lang-fr="30 inscrits" data-lang-en="30 registered">30 inscrits</span>
+                                </div>
+                                <button class="btn-register-modern" data-lang-fr="S'inscrire" data-lang-en="Register">S'inscrire</button>
+                            </div>
+                        </div>
+
+                        <div class="activity-card-modern">
+                            <div class="activity-header-modern">
+                                <div class="activity-date-modern">
+                                    <span class="activity-month-modern" data-lang-fr="MAR" data-lang-en="MAR">MAR</span>
+                                    <span class="activity-day-modern">01</span>
+                                </div>
+                                <div class="activity-content-modern">
+                                    <span class="activity-category" data-lang-fr="ÉVÉNEMENT" data-lang-en="EVENT">ÉVÉNEMENT</span>
+                                    <h3 class="activity-title-modern" data-lang-fr="Journée Portes Ouvertes" data-lang-en="Open House Day">Journée Portes Ouvertes</h3>
+                                    <div class="activity-meta-modern">
+                                        <span class="activity-meta-item">⏰ 09:00</span>
+                                        <span class="activity-meta-item">📍 Campus</span>
+                                        <span class="activity-meta-item">⏱️ Toute la journée</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="activity-footer-modern">
+                                <div class="activity-participants">
+                                    <div class="participants-avatars">
+                                        <div class="participant-avatar">Y</div>
+                                        <div class="participant-avatar">R</div>
+                                        <div class="participant-avatar">T</div>
+                                        <div class="participant-avatar">+</div>
+                                    </div>
+                                    <span class="participants-count" data-lang-fr="100+ inscrits" data-lang-en="100+ registered">100+ inscrits</span>
+                                </div>
+                                <button class="btn-register-modern" data-lang-fr="S'inscrire" data-lang-en="Register">S'inscrire</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Integration Progress Widget -->
+                <div class="progress-widget">
+                    <div class="progress-header">
+                        <h3 data-lang-fr="Votre progression d'intégration" data-lang-en="Your Integration Progress">Votre progression d'intégration</h3>
+                        <div class="progress-stats">
+                            <span data-lang-fr="⭐ 8/10 étapes complétées" data-lang-en="⭐ 8/10 steps completed">⭐ 8/10 étapes complétées</span>
+                            <span>•</span>
+                            <span>80%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-item">
+                        <div class="progress-label">
+                            <span class="progress-name" data-lang-fr="Inscription administrative" data-lang-en="Administrative registration">Inscription administrative</span>
+                            <span class="progress-percent">100%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 100%"></div>
                         </div>
                     </div>
 
-                    <div class="activity-item">
-                        <div class="activity-date">
-                            <span class="activity-month">FÉV</span>
-                            <span class="activity-day">22</span>
+                    <div class="progress-item">
+                        <div class="progress-label">
+                            <span class="progress-name" data-lang-fr="Inscription pédagogique" data-lang-en="Academic registration">Inscription pédagogique</span>
+                            <span class="progress-percent">100%</span>
                         </div>
-                        <div class="activity-content">
-                            <div class="activity-title">Networking Lauréats</div>
-                            <div class="activity-meta">
-                                <span>⏰ 18:30</span>
-                                <span>📍 Salle des fêtes</span>
-                                <span>👥 30 participants</span>
-                            </div>
-                            <button class="btn-register">S'inscrire</button>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 100%"></div>
                         </div>
                     </div>
 
-                    <div class="activity-item">
-                        <div class="activity-date">
-                            <span class="activity-month">MAR</span>
-                            <span class="activity-day">01</span>
+                    <div class="progress-item">
+                        <div class="progress-label">
+                            <span class="progress-name" data-lang-fr="Recherche de logement" data-lang-en="Housing search">Recherche de logement</span>
+                            <span class="progress-percent">75%</span>
                         </div>
-                        <div class="activity-content">
-                            <div class="activity-title">Journée Portes Ouvertes</div>
-                            <div class="activity-meta">
-                                <span>⏰ 09:00</span>
-                                <span>📍 Campus</span>
-                                <span>👥 100+ participants</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 75%"></div>
+                        </div>
+                    </div>
+
+                    <div class="progress-item">
+                        <div class="progress-label">
+                            <span class="progress-name" data-lang-fr="Carte étudiante" data-lang-en="Student card">Carte étudiante</span>
+                            <span class="progress-percent">50%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 50%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calendar Widget -->
+                <div class="calendar-widget">
+                    <div class="calendar-header">
+                        <h3 class="calendar-title" data-lang-fr="Calendrier" data-lang-en="Calendar">Calendrier</h3>
+                        <div class="calendar-nav">
+                            <button class="calendar-nav-btn" onclick="previousWeek()">‹</button>
+                            <button class="calendar-nav-btn" onclick="nextWeek()">›</button>
+                        </div>
+                    </div>
+
+                    <div class="calendar-month-label" id="monthLabel">Février 2026</div>
+
+                    <div class="calendar-grid">
+                        <div class="calendar-day-header" data-lang-fr="Lun" data-lang-en="Mon">Lun</div>
+                        <div class="calendar-day-header" data-lang-fr="Mar" data-lang-en="Tue">Mar</div>
+                        <div class="calendar-day-header" data-lang-fr="Mer" data-lang-en="Wed">Mer</div>
+                        <div class="calendar-day-header" data-lang-fr="Jeu" data-lang-en="Thu">Jeu</div>
+                        <div class="calendar-day-header" data-lang-fr="Ven" data-lang-en="Fri">Ven</div>
+                        <div class="calendar-day-header" data-lang-fr="Sam" data-lang-en="Sat">Sam</div>
+                        <div class="calendar-day-header" data-lang-fr="Dim" data-lang-en="Sun">Dim</div>
+                        
+                        <!-- Week 1 -->
+                        <div class="calendar-day disabled">27</div>
+                        <div class="calendar-day disabled">28</div>
+                        <div class="calendar-day disabled">29</div>
+                        <div class="calendar-day disabled">30</div>
+                        <div class="calendar-day disabled">31</div>
+                        <div class="calendar-day">1</div>
+                        <div class="calendar-day">2</div>
+                        
+                        <!-- Week 2 -->
+                        <div class="calendar-day">3</div>
+                        <div class="calendar-day">4</div>
+                        <div class="calendar-day">5</div>
+                        <div class="calendar-day">6</div>
+                        <div class="calendar-day">7</div>
+                        <div class="calendar-day">8</div>
+                        <div class="calendar-day">9</div>
+                        
+                        <!-- Week 3 (current week) -->
+                        <div class="calendar-day">10</div>
+                        <div class="calendar-day">11</div>
+                        <div class="calendar-day">12</div>
+                        <div class="calendar-day">13</div>
+                        <div class="calendar-day">14</div>
+                        <div class="calendar-day has-event">15</div>
+                        <div class="calendar-day">16</div>
+                        
+                        <!-- Week 4 -->
+                        <div class="calendar-day">17</div>
+                        <div class="calendar-day">18</div>
+                        <div class="calendar-day">19</div>
+                        <div class="calendar-day">20</div>
+                        <div class="calendar-day">21</div>
+                        <div class="calendar-day has-event">22</div>
+                        <div class="calendar-day">23</div>
+                    </div>
+
+                    <div class="calendar-events-preview">
+                        <div class="calendar-event-item">
+                            <div class="calendar-event-dot orange"></div>
+                            <div class="calendar-event-details">
+                                <div class="calendar-event-title" data-lang-fr="Atelier Entrepreneuriat" data-lang-en="Entrepreneurship Workshop">Atelier Entrepreneuriat</div>
+                                <div class="calendar-event-time" data-lang-fr="15 Fév • 14:00" data-lang-en="Feb 15 • 14:00">15 Fév • 14:00</div>
                             </div>
-                            <button class="btn-register">S'inscrire</button>
+                        </div>
+                        <div class="calendar-event-item">
+                            <div class="calendar-event-dot blue"></div>
+                            <div class="calendar-event-details">
+                                <div class="calendar-event-title" data-lang-fr="Networking Lauréats" data-lang-en="Alumni Networking">Networking Lauréats</div>
+                                <div class="calendar-event-time" data-lang-fr="22 Fév • 18:30" data-lang-en="Feb 22 • 18:30">22 Fév • 18:30</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -754,50 +1489,95 @@
 
             <!-- Right Column -->
             <div>
+                <!-- Integration Guides Widget -->
+                <div class="guides-widget">
+                    <div class="guides-header">
+                        <h3 data-lang-fr="Guides d'intégration" data-lang-en="Integration Guides">Guides d'intégration</h3>
+                        <p data-lang-fr="Tout ce dont vous avez besoin pour réussir votre arrivée" data-lang-en="Everything you need for a successful arrival">Tout ce dont vous avez besoin pour réussir votre arrivée</p>
+                    </div>
+                    <div class="guides-list">
+                        <div class="guide-item">
+                            <div class="guide-icon">🏠</div>
+                            <div class="guide-content">
+                                <div class="guide-title" data-lang-fr="Guide Logement" data-lang-en="Housing Guide">Guide Logement</div>
+                                <div class="guide-status" data-lang-fr="En cours" data-lang-en="In progress">En cours</div>
+                            </div>
+                            <div class="guide-arrow">→</div>
+                        </div>
+
+                        <div class="guide-item">
+                            <div class="guide-icon">🚇</div>
+                            <div class="guide-content">
+                                <div class="guide-title" data-lang-fr="Transport & Mobilité" data-lang-en="Transport & Mobility">Transport & Mobilité</div>
+                                <div class="guide-status" data-lang-fr="Nouveau" data-lang-en="New">Nouveau</div>
+                            </div>
+                            <div class="guide-arrow">→</div>
+                        </div>
+
+                        <div class="guide-item">
+                            <div class="guide-icon">🍽️</div>
+                            <div class="guide-content">
+                                <div class="guide-title" data-lang-fr="Restauration" data-lang-en="Dining">Restauration</div>
+                                <div class="guide-status" data-lang-fr="Complété" data-lang-en="Completed">Complété</div>
+                            </div>
+                            <div class="guide-arrow">→</div>
+                        </div>
+
+                        <div class="guide-item">
+                            <div class="guide-icon">📚</div>
+                            <div class="guide-content">
+                                <div class="guide-title" data-lang-fr="Bibliothèque & Ressources" data-lang-en="Library & Resources">Bibliothèque & Ressources</div>
+                                <div class="guide-status" data-lang-fr="À consulter" data-lang-en="To review">À consulter</div>
+                            </div>
+                            <div class="guide-arrow">→</div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Announcements -->
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="card-title">Annonces</h2>
+                        <h2 class="card-title" data-lang-fr="Annonces" data-lang-en="Announcements">Annonces</h2>
                     </div>
 
                     <div class="announcement-item high">
-                        <div class="announcement-title">Ouverture inscriptions pédagogiques</div>
-                        <div class="announcement-time">Il y a 2h</div>
+                        <div class="announcement-title" data-lang-fr="Ouverture inscriptions pédagogiques" data-lang-en="Academic registration now open">Ouverture inscriptions pédagogiques</div>
+                        <div class="announcement-time" data-lang-fr="Il y a 2h" data-lang-en="2h ago">Il y a 2h</div>
                     </div>
 
                     <div class="announcement-item medium">
-                        <div class="announcement-title">Nouveau guide logement disponible</div>
-                        <div class="announcement-time">Il y a 1j</div>
+                        <div class="announcement-title" data-lang-fr="Nouveau guide logement disponible" data-lang-en="New housing guide available">Nouveau guide logement disponible</div>
+                        <div class="announcement-time" data-lang-fr="Il y a 1j" data-lang-en="1d ago">Il y a 1j</div>
                     </div>
 
                     <div class="announcement-item">
-                        <div class="announcement-title">Réunion bureau CEEAM</div>
-                        <div class="announcement-time">Il y a 3j</div>
+                        <div class="announcement-title" data-lang-fr="Réunion bureau CEEAM" data-lang-en="CEEAM board meeting">Réunion bureau CEEAM</div>
+                        <div class="announcement-time" data-lang-fr="Il y a 3j" data-lang-en="3d ago">Il y a 3j</div>
                     </div>
                 </div>
 
                 <!-- Quick Actions -->
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="card-title">Accès rapides</h2>
+                        <h2 class="card-title" data-lang-fr="Accès rapides" data-lang-en="Quick Access">Accès rapides</h2>
                     </div>
 
                     <div class="quick-actions">
                         <button class="quick-action-btn">
                             <span style="font-size: 1.5rem;">📝</span>
-                            <span>Voter</span>
+                            <span data-lang-fr="Voter" data-lang-en="Vote">Voter</span>
                         </button>
                         <button class="quick-action-btn" onclick="window.location.href='edit-profile.html'">
                             <span style="font-size: 1.5rem;">✏️</span>
-                            <span>Modifier Profil</span>
+                            <span data-lang-fr="Modifier Profil" data-lang-en="Edit Profile">Modifier Profil</span>
                         </button>
                         <button class="quick-action-btn">
                             <span style="font-size: 1.5rem;">🔍</span>
-                            <span>Chercher Lauréats</span>
+                            <span data-lang-fr="Chercher Lauréats" data-lang-en="Search Alumni">Chercher Lauréats</span>
                         </button>
                         <button class="quick-action-btn">
                             <span style="font-size: 1.5rem;">📅</span>
-                            <span>Calendrier</span>
+                            <span data-lang-fr="Calendrier" data-lang-en="Calendar">Calendrier</span>
                         </button>
                     </div>
                 </div>
@@ -814,37 +1594,37 @@
                         <div class="footer-logo-icon">C</div>
                         <span class="footer-logo-text">CEEAM</span>
                     </div>
-                    <p class="footer-description">
+                    <p class="footer-description" data-lang-fr="Communauté des Étudiants Étrangers Arts & Métiers. Nous accompagnons, fédérons et représentons les étudiants internationaux de l'ENSAM." data-lang-en="Community of International Students Arts & Métiers. We support, unite and represent international students at ENSAM.">
                         Communauté des Étudiants Étrangers Arts & Métiers. 
                         Nous accompagnons, fédérons et représentons les étudiants internationaux de l'ENSAM.
                     </p>
                 </div>
 
                 <div>
-                    <h3 class="footer-title">Liens Rapides</h3>
+                    <h3 class="footer-title" data-lang-fr="Liens Rapides" data-lang-en="Quick Links">Liens Rapides</h3>
                     <ul class="footer-links">
-                        <li><a href="homepage.html">Accueil</a></li>
+                        <li><a href="homepage.html" data-lang-fr="Accueil" data-lang-en="Home">Accueil</a></li>
                         <li><a href="dashboard.html">Dashboard</a></li>
-                        <li><a href="#">Activités</a></li>
-                        <li><a href="#">Lauréats</a></li>
+                        <li><a href="#" data-lang-fr="Activités" data-lang-en="Activities">Activités</a></li>
+                        <li><a href="#" data-lang-fr="Lauréats" data-lang-en="Alumni">Lauréats</a></li>
                     </ul>
                 </div>
 
                 <div>
-                    <h3 class="footer-title">Ressources</h3>
+                    <h3 class="footer-title" data-lang-fr="Ressources" data-lang-en="Resources">Ressources</h3>
                     <ul class="footer-links">
-                        <li><a href="#">Guides ENSAM</a></li>
+                        <li><a href="#" data-lang-fr="Guides ENSAM" data-lang-en="ENSAM Guides">Guides ENSAM</a></li>
                         <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Documents</a></li>
+                        <li><a href="#" data-lang-fr="Documents" data-lang-en="Documents">Documents</a></li>
                         <li><a href="#">Support</a></li>
                     </ul>
                 </div>
 
                 <div>
-                    <h3 class="footer-title">Contacts</h3>
+                    <h3 class="footer-title">Contact</h3>
                     <p class="footer-description">
                         <strong>Email:</strong><br>
-                        contact@ceeam-ensam.fr<br><br>
+                        contact@ceeam.org<br><br>
                         <strong>Campus ENSAM</strong><br>
                         Paris, France
                     </p>
@@ -852,9 +1632,110 @@
             </div>
 
             <div class="footer-bottom">
-                <p>© 2026 CEEAM - ENSAM. Tous droits réservés.</p>
+                <p data-lang-fr="© 2026 CEEAM - Tous droits réservés" data-lang-en="© 2026 CEEAM - All rights reserved">© 2026 CEEAM - Tous droits réservés</p>
             </div>
         </div>
     </footer>
+
+    <script>
+        // Language Switcher
+        let currentLanguage = 'fr';
+
+        function switchLanguage(lang) {
+            currentLanguage = lang;
+            
+            // Update active button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Update all translatable elements
+            document.querySelectorAll('[data-lang-fr]').forEach(element => {
+                const frText = element.getAttribute('data-lang-fr');
+                const enText = element.getAttribute('data-lang-en');
+                
+                if (lang === 'fr') {
+                    element.textContent = frText;
+                } else {
+                    element.textContent = enText;
+                }
+            });
+
+            // Store preference
+            localStorage.setItem('preferredLanguage', lang);
+        }
+
+        // Load saved language preference
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('preferredLanguage');
+            if (savedLang && savedLang !== 'fr') {
+                const btn = document.querySelector(`.lang-btn[onclick*="${savedLang}"]`);
+                if (btn) btn.click();
+            }
+
+            // Animate progress bars
+            setTimeout(() => {
+                document.querySelectorAll('.progress-fill').forEach(fill => {
+                    const width = fill.style.width;
+                    fill.style.width = '0';
+                    setTimeout(() => {
+                        fill.style.width = width;
+                    }, 100);
+                });
+            }, 500);
+        });
+
+        // Mobile menu toggle (basic implementation)
+        document.querySelector('.mobile-menu-btn')?.addEventListener('click', () => {
+            const menu = document.querySelector('.nav-menu');
+            if (menu.style.display === 'flex') {
+                menu.style.display = 'none';
+            } else {
+                menu.style.display = 'flex';
+                menu.style.flexDirection = 'column';
+                menu.style.position = 'absolute';
+                menu.style.top = '70px';
+                menu.style.left = '0';
+                menu.style.right = '0';
+                menu.style.background = 'white';
+                menu.style.padding = '1rem';
+                menu.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+            }
+        });
+
+        // Calendar navigation
+        let currentWeekOffset = 0;
+        
+        function previousWeek() {
+            currentWeekOffset--;
+            updateCalendarView();
+        }
+        
+        function nextWeek() {
+            currentWeekOffset++;
+            updateCalendarView();
+        }
+        
+        function updateCalendarView() {
+            // Simple visual feedback - in real app would update calendar data
+            const monthLabel = document.getElementById('monthLabel');
+            if (monthLabel) {
+                const months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 
+                               'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+                const monthsEn = ['January', 'February', 'March', 'April', 'May', 'June',
+                                 'July', 'August', 'September', 'October', 'November', 'December'];
+                
+                let monthIndex = 1 + Math.floor(currentWeekOffset / 4); // February = 1
+                monthIndex = ((monthIndex % 12) + 12) % 12; // Keep in range 0-11
+                
+                if (currentLanguage === 'fr') {
+                    monthLabel.textContent = months[monthIndex] + ' 2026';
+                } else {
+                    monthLabel.textContent = monthsEn[monthIndex] + ' 2026';
+                }
+            }
+        }
+    </script>
 </body>
 </html>
