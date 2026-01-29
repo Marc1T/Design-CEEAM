@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - CEEAM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #172d45;
+            --primary-light: #1e3a5f;
+            --accent: #f59f24;
+            --accent-hover: #e08d15;
+            --success: #22c55e;
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --border: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-primary);
+            line-height: 1.6;
+            background: var(--bg-main);
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.75rem;
+            font-weight: 800;
+        }
+
+        .logo-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: 0.05em;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 0.5rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            padding: 0.75rem 1.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: var(--bg-main);
+            color: var(--primary);
+        }
+
+        .nav-link.active {
+            color: var(--accent);
+            background: rgba(245,159,36,0.1);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .notification-btn {
+            position: relative;
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: var(--bg-main);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .notification-btn:hover {
+            background: var(--accent);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: #ef4444;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid white;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 1rem;
+            background: var(--bg-main);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .user-profile:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .user-role {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        /* Hero */
+        .hero-dashboard {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            padding: 3rem 2rem;
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .hero-content h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1400px;
+            margin: -2rem auto 0;
+            padding: 0 2rem 4rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent) 0%, #e08d15 100%);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+        }
+
+        .stat-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-icon.blue { background: linear-gradient(135deg, rgba(23,45,69,0.1) 0%, rgba(23,45,69,0.05) 100%); }
+        .stat-icon.orange { background: linear-gradient(135deg, rgba(245,159,36,0.1) 0%, rgba(245,159,36,0.05) 100%); }
+        .stat-icon.green { background: linear-gradient(135deg, rgba(34,197,94,0.1) 0%, rgba(34,197,94,0.05) 100%); }
+        .stat-icon.purple { background: linear-gradient(135deg, rgba(168,85,247,0.1) 0%, rgba(168,85,247,0.05) 100%); }
+
+        .stat-value {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .stat-trend {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            margin-top: 0.75rem;
+            background: rgba(34,197,94,0.1);
+            color: var(--success);
+        }
+
+        /* Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        /* Card */
+        .card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .card-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .card-link:hover {
+            color: var(--accent-hover);
+        }
+
+        /* Activity Item */
+        .activity-item {
+            display: flex;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .activity-item:hover {
+            border-color: var(--accent);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            transform: translateY(-4px);
+        }
+
+        .activity-date {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .activity-month {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .activity-day {
+            font-size: 1.75rem;
+            font-weight: 800;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .activity-meta {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .btn-register {
+            padding: 0.625rem 1.5rem;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .btn-register:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(245,159,36,0.3);
+        }
+
+        /* Announcement */
+        .announcement-item {
+            padding: 1.25rem;
+            border-radius: 12px;
+            background: var(--bg-main);
+            border-left: 4px solid var(--border);
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .announcement-item:hover {
+            border-left-color: var(--accent);
+            background: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .announcement-item.high { border-left-color: #ef4444; }
+        .announcement-item.medium { border-left-color: var(--accent); }
+
+        .announcement-title {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .announcement-time {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .quick-action-btn {
+            width: 100%;
+            padding: 1.25rem;
+            background: linear-gradient(135deg, rgba(245,159,36,0.1) 0%, rgba(245,159,36,0.05) 100%);
+            border: 1px solid rgba(245,159,36,0.2);
+            border-radius: 12px;
+            color: var(--primary);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .quick-action-btn:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            transform: translateX(4px);
+        }
+
+        /* Footer */
+        .footer {
+            background: #0a0a0a;
+            color: white;
+            padding: 4rem 2rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            font-weight: 800;
+        }
+
+        .footer-logo-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        .footer-description {
+            color: rgba(255,255,255,0.7);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stat-card {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .stat-card:nth-child(1) { animation-delay: 0.1s; }
+        .stat-card:nth-child(2) { animation-delay: 0.2s; }
+        .stat-card:nth-child(3) { animation-delay: 0.3s; }
+        .stat-card:nth-child(4) { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="homepage.html" class="logo">
+                <div class="logo-icon">C</div>
+                <span class="logo-text">CEEAM</span>
+            </a>
+
+            <ul class="nav-menu">
+                <li><a href="dashboard.html" class="nav-link active">Dashboard</a></li>
+                <li><a href="#" class="nav-link">Activités</a></li>
+                <li><a href="#" class="nav-link">Lauréats</a></li>
+                <li><a href="#" class="nav-link">École</a></li>
+            </ul>
+
+            <div class="header-actions">
+                <button class="notification-btn" onclick="window.location.href='notifications.html'">
+                    🔔
+                    <span class="notification-badge">3</span>
+                </button>
+
+                <div class="user-profile" onclick="window.location.href='view-profile.html'">
+                    <div class="user-avatar">YB</div>
+                    <div class="user-info">
+                        <div class="user-name">Youssef B.</div>
+                        <div class="user-role">Étudiant</div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero-dashboard">
+        <div class="hero-content">
+            <h1>Bienvenue, Youssef ! 👋</h1>
+            <p>Voici un aperçu de vos activités sur la plateforme CEEAM</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon blue">📚</div>
+                <div class="stat-value">24</div>
+                <div class="stat-label">Guides consultés</div>
+                <div class="stat-trend">↑ 12%</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon orange">🎯</div>
+                <div class="stat-value">12</div>
+                <div class="stat-label">Activités participées</div>
+                <div class="stat-trend">↑ 8%</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon green">✅</div>
+                <div class="stat-value">3/3</div>
+                <div class="stat-label">Taux de participation</div>
+                <div class="stat-trend">100%</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon purple">👥</div>
+                <div class="stat-value">18</div>
+                <div class="stat-label">Contacts lauréats</div>
+                <div class="stat-trend">↑ 5</div>
+            </div>
+        </div>
+
+        <!-- Content Grid -->
+        <div class="content-grid">
+            <!-- Left Column -->
+            <div>
+                <!-- Activities -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Activités à venir</h2>
+                        <a href="#" class="card-link">Voir tout →</a>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="activity-date">
+                            <span class="activity-month">FÉV</span>
+                            <span class="activity-day">15</span>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">Atelier Entrepreneuriat</div>
+                            <div class="activity-meta">
+                                <span>⏰ 14:00</span>
+                                <span>📍 Amphi A</span>
+                                <span>👥 45 participants</span>
+                            </div>
+                            <button class="btn-register">S'inscrire</button>
+                        </div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="activity-date">
+                            <span class="activity-month">FÉV</span>
+                            <span class="activity-day">22</span>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">Networking Lauréats</div>
+                            <div class="activity-meta">
+                                <span>⏰ 18:30</span>
+                                <span>📍 Salle des fêtes</span>
+                                <span>👥 30 participants</span>
+                            </div>
+                            <button class="btn-register">S'inscrire</button>
+                        </div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="activity-date">
+                            <span class="activity-month">MAR</span>
+                            <span class="activity-day">01</span>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title">Journée Portes Ouvertes</div>
+                            <div class="activity-meta">
+                                <span>⏰ 09:00</span>
+                                <span>📍 Campus</span>
+                                <span>👥 100+ participants</span>
+                            </div>
+                            <button class="btn-register">S'inscrire</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div>
+                <!-- Announcements -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Annonces</h2>
+                    </div>
+
+                    <div class="announcement-item high">
+                        <div class="announcement-title">Ouverture inscriptions pédagogiques</div>
+                        <div class="announcement-time">Il y a 2h</div>
+                    </div>
+
+                    <div class="announcement-item medium">
+                        <div class="announcement-title">Nouveau guide logement disponible</div>
+                        <div class="announcement-time">Il y a 1j</div>
+                    </div>
+
+                    <div class="announcement-item">
+                        <div class="announcement-title">Réunion bureau CEEAM</div>
+                        <div class="announcement-time">Il y a 3j</div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Accès rapides</h2>
+                    </div>
+
+                    <div class="quick-actions">
+                        <button class="quick-action-btn">
+                            <span style="font-size: 1.5rem;">📝</span>
+                            <span>Voter</span>
+                        </button>
+                        <button class="quick-action-btn" onclick="window.location.href='edit-profile.html'">
+                            <span style="font-size: 1.5rem;">✏️</span>
+                            <span>Modifier Profil</span>
+                        </button>
+                        <button class="quick-action-btn">
+                            <span style="font-size: 1.5rem;">🔍</span>
+                            <span>Chercher Lauréats</span>
+                        </button>
+                        <button class="quick-action-btn">
+                            <span style="font-size: 1.5rem;">📅</span>
+                            <span>Calendrier</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-logo">
+                        <div class="footer-logo-icon">C</div>
+                        <span class="footer-logo-text">CEEAM</span>
+                    </div>
+                    <p class="footer-description">
+                        Communauté des Étudiants Étrangers Arts & Métiers. 
+                        Nous accompagnons, fédérons et représentons les étudiants internationaux de l'ENSAM.
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="footer-title">Liens Rapides</h3>
+                    <ul class="footer-links">
+                        <li><a href="homepage.html">Accueil</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="#">Activités</a></li>
+                        <li><a href="#">Lauréats</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="footer-title">Ressources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Guides ENSAM</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Documents</a></li>
+                        <li><a href="#">Support</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="footer-title">Contacts</h3>
+                    <p class="footer-description">
+                        <strong>Email:</strong><br>
+                        contact@ceeam-ensam.fr<br><br>
+                        <strong>Campus ENSAM</strong><br>
+                        Paris, France
+                    </p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 CEEAM - ENSAM. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

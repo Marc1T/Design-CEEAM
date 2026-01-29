@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CEEAM - Communauté des Étudiants Étrangers Arts & Métiers</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #172d45;
+            --primary-light: #1e3a5f;
+            --accent: #f59f24;
+            --accent-hover: #e08d15;
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --border: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Header Navigation */
+        .header {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon img {
+            width: 35px;
+            height: 35px;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: 0.05em;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 0.5rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            padding: 0.75rem 1.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: var(--bg-main);
+            color: var(--primary);
+        }
+
+        .nav-link.active {
+            color: var(--accent);
+            background: rgba(245,166,35,0.1);
+        }
+
+        .btn-connexion {
+            padding: 0.75rem 2rem;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-connexion:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(245,166,35,0.3);
+        }
+
+        /* Hero Section with Carousel */
+        .hero {
+            background: #1a1a1a;
+            position: relative;
+            overflow: hidden;
+            height: 600px;
+        }
+
+        .carousel {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+        }
+
+        .carousel-content {
+            text-align: center;
+            color: white;
+            z-index: 2;
+            max-width: 900px;
+            padding: 0 2rem;
+        }
+
+        .carousel-content h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .carousel-content p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .carousel-btn {
+            padding: 1rem 2.5rem;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(245,166,35,0.4);
+        }
+
+        .carousel-nav {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.75rem;
+            z-index: 10;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            width: 40px;
+            border-radius: 6px;
+            background: var(--accent);
+        }
+
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .carousel-arrow:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .carousel-arrow.prev {
+            left: 2rem;
+        }
+
+        .carousel-arrow.next {
+            right: 2rem;
+        }
+
+        /* Mission Section */
+        .mission-section {
+            padding: 5rem 2rem;
+            background: linear-gradient(180deg, var(--bg-main) 0%, white 100%);
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .mission-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mission-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--primary) 100%);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .mission-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+        }
+
+        .mission-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .mission-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .mission-icon.blue {
+            background: linear-gradient(135deg, rgba(44,74,94,0.1) 0%, rgba(44,74,94,0.05) 100%);
+        }
+
+        .mission-icon.orange {
+            background: linear-gradient(135deg, rgba(245,166,35,0.1) 0%, rgba(245,166,35,0.05) 100%);
+        }
+
+        .mission-icon.gold {
+            background: linear-gradient(135deg, rgba(255,215,0,0.1) 0%, rgba(255,215,0,0.05) 100%);
+        }
+
+        .mission-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .mission-card p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .mission-indicators {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .indicator-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .dot-blue {
+            background: var(--primary);
+        }
+
+        .dot-orange {
+            background: var(--accent);
+        }
+
+        /* Community Section */
+        .community-section {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #1e40af 0%, #3730a3 100%);
+            color: white;
+        }
+
+        .community-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .community-header h2 {
+            font-family: 'Poppons', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .community-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .community-header p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            margin-top: 1.5rem;
+        }
+
+        .countries-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .country-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .country-card:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+        }
+
+        .country-flag {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .country-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 0.1em;
+        }
+
+        .country-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 1rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .carousel-nav-community {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-top: 3rem;
+        }
+
+        .carousel-dot-community {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-dot-community.active {
+            width: 40px;
+            border-radius: 6px;
+            background: var(--accent);
+        }
+
+        /* Footer */
+        .footer {
+            background: #0a0a0a;
+            color: white;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand {
+            max-width: 400px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .footer-logo-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+        }
+
+        .footer-description {
+            color: rgba(255,255,255,0.7);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .contact-icon {
+            width: 24px;
+            height: 24px;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 0.35rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .mobile-menu-btn span {
+            width: 28px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .carousel-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .carousel-arrow {
+                width: 40px;
+                height: 40px;
+            }
+
+            .carousel-arrow.prev {
+                left: 1rem;
+            }
+
+            .carousel-arrow.next {
+                right: 1rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mission-card {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .mission-card:nth-child(1) { animation-delay: 0.1s; }
+        .mission-card:nth-child(2) { animation-delay: 0.2s; }
+        .mission-card:nth-child(3) { animation-delay: 0.3s; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <span style="color: white; font-size: 1.75rem; font-weight: 800;">C</span>
+                </div>
+                <span class="logo-text">CEEAM</span>
+            </a>
+
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-link active">Accueil</a></li>
+                <li><a href="#" class="nav-link">École</a></li>
+                <li><a href="#" class="nav-link">Activités</a></li>
+                <li><a href="#" class="nav-link">Lauréats</a></li>
+            </ul>
+
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <button class="btn-connexion" onclick="window.location.href='dashboard.html'">
+                    Connexion
+                </button>
+                <button class="mobile-menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Carousel -->
+    <section class="hero">
+        <div class="carousel">
+            <div class="carousel-slide active">
+                <div class="carousel-content">
+                    <h1>Bienvenue à la CEEAM</h1>
+                    <p>Communauté des Étudiants Étrangers Arts & Métiers - Votre famille loin de chez vous</p>
+                    <button class="carousel-btn">Découvrir la communauté</button>
+                </div>
+            </div>
+
+            <div class="carousel-slide">
+                <div class="carousel-content">
+                    <h1>Ensemble, Plus Forts</h1>
+                    <p>Rejoignez une communauté internationale dynamique de plus de 200 étudiants</p>
+                    <button class="carousel-btn">Nos activités</button>
+                </div>
+            </div>
+
+            <div class="carousel-slide">
+                <div class="carousel-content">
+                    <h1>Votre Réussite, Notre Mission</h1>
+                    <p>Accompagnement, ressources et réseau professionnel pour votre parcours</p>
+                    <button class="carousel-btn">En savoir plus</button>
+                </div>
+            </div>
+
+            <button class="carousel-arrow prev" onclick="previousSlide()">‹</button>
+            <button class="carousel-arrow next" onclick="nextSlide()">›</button>
+
+            <div class="carousel-nav">
+                <span class="carousel-dot active" onclick="goToSlide(0)"></span>
+                <span class="carousel-dot" onclick="goToSlide(1)"></span>
+                <span class="carousel-dot" onclick="goToSlide(2)"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="mission-section">
+        <div class="section-container">
+            <div class="section-title">
+                <h2>Notre Mission</h2>
+            </div>
+
+            <div class="mission-grid">
+                <div class="mission-card">
+                    <div class="mission-icon blue">
+                        👥
+                    </div>
+                    <h3>Intégration</h3>
+                    <p>Aider les nouveaux étudiants à s'adapter facilement à leur nouvel environnement académique et culturel.</p>
+                    <div class="mission-indicators">
+                        <span class="indicator-dot dot-blue"></span>
+                        <span class="indicator-dot dot-orange"></span>
+                    </div>
+                </div>
+
+                <div class="mission-card">
+                    <div class="mission-icon orange">
+                        ❤️
+                    </div>
+                    <h3>Solidarité</h3>
+                    <p>Créer une communauté forte et unie où chacun peut compter sur le soutien de ses pairs.</p>
+                    <div class="mission-indicators">
+                        <span class="indicator-dot dot-blue"></span>
+                        <span class="indicator-dot dot-orange"></span>
+                    </div>
+                </div>
+
+                <div class="mission-card">
+                    <div class="mission-icon gold">
+                        🏆
+                    </div>
+                    <h3>Excellence</h3>
+                    <p>Valoriser les parcours académiques et professionnels de nos membres pour atteindre l'excellence.</p>
+                    <div class="mission-indicators">
+                        <span class="indicator-dot dot-blue"></span>
+                        <span class="indicator-dot dot-orange"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section class="community-section">
+        <div class="section-container">
+            <div class="community-header">
+                <h2>Notre Communauté Internationale</h2>
+                <p>60 étudiants de 18 pays</p>
+            </div>
+
+            <div class="countries-grid">
+                <div class="country-card">
+                    <span class="country-flag">🇧🇯</span>
+                    <h3 class="country-name">BÉNIN</h3>
+                    <div class="country-stats">
+                        <div class="stat">
+                            <div class="stat-label">Membres</div>
+                            <div class="stat-value">10</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">Lauréats</div>
+                            <div class="stat-value">10</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="country-card">
+                    <span class="country-flag">🇲🇦</span>
+                    <h3 class="country-name">MAROC</h3>
+                    <div class="country-stats">
+                        <div class="stat">
+                            <div class="stat-label">Membres</div>
+                            <div class="stat-value">25</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">Lauréats</div>
+                            <div class="stat-value">18</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="country-card">
+                    <span class="country-flag">🇹🇳</span>
+                    <h3 class="country-name">TUNISIE</h3>
+                    <div class="country-stats">
+                        <div class="stat">
+                            <div class="stat-label">Membres</div>
+                            <div class="stat-value">8</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">Lauréats</div>
+                            <div class="stat-value">12</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="country-card">
+                    <span class="country-flag">🇨🇮</span>
+                    <h3 class="country-name">CÔTE D'IVOIRE</h3>
+                    <div class="country-stats">
+                        <div class="stat">
+                            <div class="stat-label">Membres</div>
+                            <div class="stat-value">12</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label">Lauréats</div>
+                            <div class="stat-value">8</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-nav-community">
+                <span class="carousel-dot-community active"></span>
+                <span class="carousel-dot-community"></span>
+                <span class="carousel-dot-community"></span>
+                <span class="carousel-dot-community"></span>
+                <span class="carousel-dot-community"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <div class="footer-logo-icon">C</div>
+                        <span class="footer-logo-text">CEEAM</span>
+                    </div>
+                    <p class="footer-description">
+                        Communauté des Étudiants Étrangers Arts & Métiers. 
+                        Nous accompagnons, fédérons et représentons les étudiants internationaux de l'ENSAM.
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="footer-title">Liens Rapides</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Accueil</a></li>
+                        <li><a href="#">École</a></li>
+                        <li><a href="#">Activités</a></li>
+                        <li><a href="#">Lauréats</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="footer-title">Ressources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Guides ENSAM</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Documents</a></li>
+                        <li><a href="#">Support</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="footer-title">Contacts</h3>
+                    <div class="contact-item">
+                        <svg class="contact-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        <div>
+                            <strong>Localisation:</strong><br>
+                            Campus ENSAM, Paris
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <svg class="contact-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                        <div>
+                            <strong>Contact:</strong><br>
+                            <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4c2f2322382d2f380c2f29292d216129223f2d21622a3e">[email&#160;protected]</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 CEEAM - ENSAM. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Carousel functionality
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const dots = document.querySelectorAll('.carousel-dot');
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            if (index >= totalSlides) currentSlide = 0;
+            if (index < 0) currentSlide = totalSlides - 1;
+            
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() {
+            currentSlide++;
+            showSlide(currentSlide);
+        }
+
+        function previousSlide() {
+            currentSlide--;
+            showSlide(currentSlide);
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            showSlide(currentSlide);
+        }
+
+        // Auto-advance carousel
+        setInterval(() => {
+            nextSlide();
+        }, 5000);
+
+        // Smooth scroll for buttons
+        document.querySelectorAll('.carousel-btn').forEach(btn => {
+            

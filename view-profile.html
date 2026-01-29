@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Profil - CEEAM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #172d45;
+            --primary-light: #1e3a5f;
+            --accent: #f59f24;
+            --accent-hover: #e08d15;
+            --success: #22c55e;
+            --info: #3b82f6;
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --border: #e2e8f0;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-primary);
+            line-height: 1.6;
+            background: var(--bg-main);
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        .logo-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 0.5rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            padding: 0.6rem 1.2rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: var(--bg-main);
+            color: var(--primary);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .notification-btn {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--bg-main);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .notification-btn:hover {
+            background: var(--accent);
+            transform: scale(1.05);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: #ef4444;
+            color: white;
+            font-size: 0.65rem;
+            font-weight: 700;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid white;
+        }
+
+        /* Profile Hero */
+        .profile-hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            padding: 3rem 1rem 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .profile-hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Profile Card */
+        .profile-card {
+            max-width: 1400px;
+            margin: -3rem auto 0;
+            padding: 0 1rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .profile-main {
+            background: white;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 2rem;
+        }
+
+        .profile-header {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .avatar-container {
+            position: relative;
+        }
+
+        .profile-avatar {
+            width: 140px;
+            height: 140px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            font-weight: 800;
+            box-shadow: var(--shadow-md);
+        }
+
+        .profile-status {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            width: 24px;
+            height: 24px;
+            background: var(--success);
+            border: 3px solid white;
+            border-radius: 50%;
+        }
+
+        .profile-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .profile-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .profile-role-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, rgba(245,159,36,0.1) 0%, rgba(245,159,36,0.2) 100%);
+            color: var(--accent);
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .profile-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .profile-bio {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .profile-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(245, 159, 36, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(245, 159, 36, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--bg-main);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Stats Grid */
+        .stats-mini {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-mini-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+
+        .stat-mini-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-mini-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-mini-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Tabs */
+        .tabs {
+            background: white;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        .tab-header {
+            display: flex;
+            border-bottom: 2px solid var(--bg-main);
+            background: var(--bg-main);
+            padding: 0.5rem;
+            gap: 0.5rem;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover {
+            background: rgba(245, 159, 36, 0.1);
+            color: var(--accent);
+        }
+
+        .tab-btn.active {
+            background: white;
+            color: var(--accent);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .tab-content {
+            padding: 2rem;
+        }
+
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        /* Info Grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .info-section {
+            background: var(--bg-main);
+            padding: 1.5rem;
+            border-radius: 16px;
+        }
+
+        .info-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .info-value {
+            font-weight: 600;
+            color: var(--text-primary);
+            text-align: right;
+            font-size: 0.9rem;
+        }
+
+        .info-value a {
+            color: var(--info);
+            text-decoration: none;
+        }
+
+        .info-value a:hover {
+            text-decoration: underline;
+        }
+
+        /* Professional Section (Laureat only) */
+        .professional-section {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(59, 130, 246, 0.1) 100%);
+            border: 2px solid rgba(59, 130, 246, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .professional-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .professional-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--info);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+        }
+
+        .professional-title {
+            flex: 1;
+        }
+
+        .professional-title h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .professional-title p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .professional-details {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .professional-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            background: white;
+            padding: 1rem;
+            border-radius: 12px;
+        }
+
+        .professional-item-icon {
+            font-size: 1.3rem;
+            margin-top: 0.2rem;
+        }
+
+        .professional-item-content h4 {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+            font-size: 0.95rem;
+        }
+
+        .professional-item-content p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        /* Student Integration Status */
+        .integration-status {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.05) 0%, rgba(34, 197, 94, 0.1) 100%);
+            border: 2px solid rgba(34, 197, 94, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .integration-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .integration-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .integration-percentage {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--success);
+        }
+
+        .integration-progress {
+            height: 12px;
+            background: rgba(34, 197, 94, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .integration-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success) 0%, #10b981 100%);
+            border-radius: 10px;
+            transition: width 1s ease;
+        }
+
+        .integration-items {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .integration-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: white;
+            border-radius: 10px;
+        }
+
+        .integration-item.completed {
+            opacity: 0.7;
+        }
+
+        .integration-check {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+
+        .integration-check.done {
+            background: var(--success);
+            color: white;
+        }
+
+        .integration-check.pending {
+            background: var(--border);
+            color: var(--text-secondary);
+        }
+
+        /* Interests/Skills Tags */
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .tag {
+            padding: 0.5rem 1rem;
+            background: var(--bg-main);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .tag:hover {
+            background: white;
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Mentorship Toggle */
+        .mentorship-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            padding: 2rem;
+            color: white;
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .mentorship-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .mentorship-card p {
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .mentorship-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            border-radius: 12px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-switch.active {
+            background: white;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-switch.active .toggle-slider {
+            left: 33px;
+            background: var(--success);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2rem;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -2.4rem;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            background: var(--accent);
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px var(--border);
+        }
+
+        .timeline-content {
+            background: var(--bg-main);
+            padding: 1.25rem;
+            border-radius: 12px;
+        }
+
+        .timeline-date {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .timeline-title {
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+            font-size: 0.95rem;
+        }
+
+        .timeline-description {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary);
+            color: white;
+            padding: 3rem 1rem 1.5rem;
+            margin-top: 4rem;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--accent);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.5rem;
+        }
+
+        .footer-logo-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .footer-description {
+            opacity: 0.8;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .footer-title {
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .profile-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .profile-name {
+                font-size: 1.6rem;
+            }
+
+            .profile-meta {
+                justify-content: center;
+            }
+
+            .stats-mini {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tab-header {
+                overflow-x: auto;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .profile-main,
+        .stats-mini,
+        .tabs {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="homepage.html" class="logo">
+                <div class="logo-icon">C</div>
+                <span class="logo-text">CEEAM</span>
+            </a>
+
+            <ul class="nav-menu">
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><a href="#" class="nav-link">Activités</a></li>
+                <li><a href="#" class="nav-link">Lauréats</a></li>
+                <li><a href="#" class="nav-link">École</a></li>
+            </ul>
+
+            <div class="header-actions">
+                <button class="notification-btn" onclick="window.location.href='notifications.html'">
+                    🔔
+                    <span class="notification-badge">3</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Profile Hero -->
+    <section class="profile-hero">
+        <div class="profile-hero-content"></div>
+    </section>
+
+    <!-- Profile Card -->
+    <div class="profile-card">
+        <div class="profile-main">
+            <div class="profile-header">
+                <div class="avatar-container">
+                    <div class="profile-avatar" id="userAvatar">YB</div>
+                    <div class="profile-status"></div>
+                </div>
+
+                <div class="profile-info">
+                    <h1 class="profile-name" id="userName">Youssef Benkirane</h1>
+                    <div class="profile-role-badge" id="roleBadge">
+                        <span>🎓</span>
+                        <span id="roleText">Étudiant</span>
+                    </div>
+
+                    <div class="profile-meta">
+                        <span class="profile-meta-item">
+                            <span>🎓</span>
+                            <span id="promotion">Promotion 2025</span>
+                        </span>
+                        <span class="profile-meta-item">
+                            <span>📚</span>
+                            <span id="field">Génie Industriel</span>
+                        </span>
+                        <span class="profile-meta-item">
+                            <span>🏫</span>
+                            <span id="campus">Paris - Cluny</span>
+                        </span>
+                        <span class="profile-meta-item">
+                            <span>🇲🇦</span>
+                            <span id="nationality">Maroc</span>
+                        </span>
+                        <span class="profile-meta-item">
+                            <span>📅</span>
+                            <span id="memberSince">Membre depuis Sept 2022</span>
+                        </span>
+                    </div>
+
+                    <p class="profile-bio" id="userBio">
+                        Étudiant passionné par l'innovation et la technologie. Membre actif de la CEEAM, 
+                        j'aime participer aux activités et aider les nouveaux étudiants étrangers à s'intégrer.
+                    </p>
+
+                    <div class="profile-actions">
+                        <button class="btn btn-primary" onclick="window.location.href='edit-profile.html'">
+                            ✏️ Modifier le profil
+                        </button>
+                        <button class="btn btn-secondary">
+                            📤 Partager
+                        </button>
+                        <button class="btn btn-secondary" id="visibilityBtn" style="display: none;">
+                            👁️ Profil Public
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Mini -->
+        <div class="stats-mini">
+            <div class="stat-mini-card">
+                <div class="stat-mini-value">12</div>
+                <div class="stat-mini-label">Activités</div>
+            </div>
+            <div class="stat-mini-card">
+                <div class="stat-mini-value">3</div>
+                <div class="stat-mini-label">Votes</div>
+            </div>
+            <div class="stat-mini-card">
+                <div class="stat-mini-value">18</div>
+                <div class="stat-mini-label">Connexions</div>
+            </div>
+            <div class="stat-mini-card">
+                <div class="stat-mini-value">8</div>
+                <div class="stat-mini-label">Contributions</div>
+            </div>
+        </div>
+
+        <!-- Integration Status (Student Only) -->
+        <div class="integration-status" id="integrationSection">
+            <div class="integration-header">
+                <h3 class="integration-title">🎯 Progression d'intégration</h3>
+                <span class="integration-percentage">80%</span>
+            </div>
+            <div class="integration-progress">
+                <div class="integration-progress-fill" style="width: 80%"></div>
+            </div>
+            <div class="integration-items">
+                <div class="integration-item completed">
+                    <span class="integration-check done">✓</span>
+                    <span>Inscription administrative</span>
+                </div>
+                <div class="integration-item completed">
+                    <span class="integration-check done">✓</span>
+                    <span>Inscription pédagogique</span>
+                </div>
+                <div class="integration-item completed">
+                    <span class="integration-check done">✓</span>
+                    <span>Carte étudiante obtenue</span>
+                </div>
+                <div class="integration-item">
+                    <span class="integration-check done">✓</span>
+                    <span>Logement trouvé</span>
+                </div>
+                <div class="integration-item">
+                    <span class="integration-check pending">○</span>
+                    <span>Compte bancaire ouvert</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Professional Section (Laureat Only) -->
+        <div class="professional-section" id="professionalSection" style="display: none;">
+            <div class="professional-header">
+                <div class="professional-icon">💼</div>
+                <div class="professional-title">
+                    <h3 id="professionalPosition">Ingénieur Développement</h3>
+                    <p id="professionalCompany">Renault Group • Paris, France</p>
+                </div>
+            </div>
+            <div class="professional-details">
+                <div class="professional-item">
+                    <span class="professional-item-icon">🏢</span>
+                    <div class="professional-item-content">
+                        <h4>Entreprise</h4>
+                        <p id="companyName">Renault Group</p>
+                    </div>
+                </div>
+                <div class="professional-item">
+                    <span class="professional-item-icon">📍</span>
+                    <div class="professional-item-content">
+                        <h4>Localisation</h4>
+                        <p id="location">Paris, France</p>
+                    </div>
+                </div>
+                <div class="professional-item">
+                    <span class="professional-item-icon">📧</span>
+                    <div class="professional-item-content">
+                        <h4>Email Professionnel</h4>
+                        <p id="professionalEmail">youssef.benkirane@renault.com</p>
+                    </div>
+                </div>
+                <div class="professional-item">
+                    <span class="professional-item-icon">💡</span>
+                    <div class="professional-item-content">
+                        <h4>Domaine d'expertise</h4>
+                        <p id="expertise">Développement logiciel, IA, Systèmes embarqués</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mentorship Card -->
+            <div class="mentorship-card">
+                <h3>🤝 Mentorat</h3>
+                <p>Je suis disponible pour aider les étudiants actuels</p>
+                <div class="mentorship-toggle">
+                    <span>Disponible pour mentorat</span>
+                    <div class="toggle-switch active" onclick="toggleMentorship()">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <div class="tab-header">
+                <button class="tab-btn active" onclick="switchTab(0)">📋 À propos</button>
+                <button class="tab-btn" onclick="switchTab(1)">📊 Historique</button>
+                <button class="tab-btn" onclick="switchTab(2)" id="interestsTab">🎯 Centres d'intérêt</button>
+            </div>
+
+            <div class="tab-content">
+                <!-- Tab 1: About -->
+                <div class="tab-panel active">
+                    <div class="info-grid">
+                        <div class="info-section">
+                            <h3 class="info-title">👤 Informations personnelles</h3>
+                            <div class="info-item">
+                                <span class="info-label">Email</span>
+                                <span class="info-value"><a href="mailto:youssef.b@ensam.eu">youssef.b@ensam.eu</a></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Téléphone</span>
+                                <span class="info-value">+212 6 12 34 56 78</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Nationalité</span>
+                                <span class="info-value">🇲🇦 Marocaine</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Langue préférée</span>
+                                <span class="info-value">🇫🇷 Français</span>
+                            </div>
+                        </div>
+
+                        <div class="info-section">
+                            <h3 class="info-title">🎓 Informations académiques</h3>
+                            <div class="info-item">
+                                <span class="info-label">Promotion</span>
+                                <span class="info-value">2025</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Filière</span>
+                                <span class="info-value">Génie Industriel et Mécanique</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Campus</span>
+                                <span class="info-value">Paris - Cluny</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">LinkedIn</span>
+                                <span class="info-value"><a href="https://linkedin.com/in/ybenkirane" target="_blank">linkedin.com/in/ybenkirane</a></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 2: Timeline -->
+                <div class="tab-panel">
+                    <h3 class="info-title">📅 Historique d'activité</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-date">15 Janvier 2025</div>
+                                <div class="timeline-title">Participation au vote électronique</div>
+                                <div class="timeline-description">Élection du nouveau bureau exécutif CEEAM 2025</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-date">20 Décembre 2024</div>
+                                <div class="timeline-title">Soirée d'intégration</div>
+                                <div class="timeline-description">Participation à l'événement de fin d'année avec 45 étudiants</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-date">10 Novembre 2024</div>
+                                <div class="timeline-title">Contact avec lauréat</div>
+                                <div class="timeline-description">Échange avec Ahmed K. (Promo 2020) - Ingénieur chez Renault</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-date">15 Septembre 2022</div>
+                                <div class="timeline-title">Inscription à la CEEAM</div>
+                                <div class="timeline-description">Début de l'aventure CEEAM !</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 3: Interests/Skills -->
+                <div class="tab-panel">
+                    <h3 class="info-title" id="interestsTitle">🎯 Centres d'intérêt</h3>
+                    <div class="tags-container" id="tagsContainer">
+                        <span class="tag">⚽ Football</span>
+                        <span class="tag">🎮 Gaming</span>
+                        <span class="tag">💻 Programmation</span>
+                        <span class="tag">📚 Lecture</span>
+                        <span class="tag">🎵 Musique</span>
+                        <span class="tag">✈️ Voyages</span>
+                        <span class="tag">🍳 Cuisine</span>
+                        <span class="tag">📷 Photographie</span>
+                    </div>
+
+                    <div class="info-section" style="margin-top: 2rem;">
+                        <h3 class="info-title">🔍 Recherche actuellement</h3>
+                        <div class="tags-container">
+                            <span class="tag">🏠 Logement (colocation)</span>
+                            <span class="tag">🚗 Covoiturage vers Paris</span>
+                            <span class="tag">👥 Partenaire de sport</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-logo">
+                        <div class="footer-logo-icon">C</div>
+                        <span class="footer-logo-text">CEEAM</span>
+                    </div>
+                    <p class="footer-description">
+                        Communauté des Étudiants Étrangers Arts & Métiers. 
+                        Nous accompagnons, fédérons et représentons les étudiants internationaux de l'ENSAM.
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="footer-title">Liens Rapides</h3>
+                    <ul class="footer-links">
+                        <li><a href="homepage.html">Accueil</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="#">Activités</a></li>
+                        <li><a href="#">Lauréats</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="footer-title">Ressources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Guides ENSAM</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Documents</a></li>
+                        <li><a href="#">Support</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="footer-title">Contact</h3>
+                    <p class="footer-description">
+                        <strong>Email:</strong><br>
+                        contact@ceeam.org<br><br>
+                        <strong>Campus ENSAM</strong><br>
+                        Paris, France
+                    </p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 CEEAM - Tous droits réservés</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // SIMULATION: User data (this would come from your backend API)
+        const userData = {
+            role: 'student', // Change to 'laureat' to see laureat profile
+            firstName: 'Youssef',
+            lastName: 'Benkirane',
+            email: 'youssef.b@ensam.eu',
+            phone: '+212 6 12 34 56 78',
+            nationality: 'Maroc',
+            promotion: '2025',
+            fieldOfStudy: 'Génie Industriel et Mécanique',
+            campus: 'Paris - Cluny',
+            linkedin: 'linkedin.com/in/ybenkirane',
+            bio: 'Étudiant passionné par l\'innovation et la technologie. Membre actif de la CEEAM, j\'aime participer aux activités et aider les nouveaux étudiants étrangers à s\'intégrer.',
+            dateJoined: 'Sept 2022',
+            preferredLanguage: 'fr',
+            
+            // Laureat specific data
+            laureatProfile: {
+                currentPosition: 'Ingénieur Développement',
+                company: 'Renault Group',
+                country: 'France',
+                city: 'Paris',
+                professionalEmail: 'youssef.benkirane@renault.com',
+                expertise: 'Développement logiciel, IA, Systèmes embarqués',
+                bio: 'Ingénieur passionné par l\'innovation automobile et les systèmes embarqués. Je travaille sur les véhicules autonomes et l\'intelligence artificielle.',
+                isPublic: true,
+                mentorshipAvailable: true
+            }
+        };
+
+        // Initialize profile based on role
+        function initializeProfile() {
+            const isLaureat = userData.role === 'laureat';
+            
+            // Update role badge
+            const roleBadge = document.getElementById('roleBadge');
+            const roleText = document.getElementById('roleText');
+            
+            if (isLaureat) {
+                roleBadge.innerHTML = '<span>🎓</span><span>Lauréat</span>';
+                roleBadge.style.background = 'linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.2) 100%)';
+                roleBadge.style.color = 'var(--info)';
+                
+                // Show professional section, hide integration
+                document.getElementById('professionalSection').style.display = 'block';
+                document.getElementById('integrationSection').style.display = 'none';
+                document.getElementById('visibilityBtn').style.display = 'inline-flex';
+                
+                // Update interests tab to skills
+                document.getElementById('interestsTab').innerHTML = '💼 Compétences';
+                document.getElementById('interestsTitle').innerHTML = '💼 Compétences professionnelles';
+                
+                // Update tags for laureat
+                document.getElementById('tagsContainer').innerHTML = `
+                    <span class="tag">Python</span>
+                    <span class="tag">JavaScript</span>
+                    <span class="tag">React</span>
+                    <span class="tag">Machine Learning</span>
+                    <span class="tag">IoT</span>
+                    <span class="tag">Cloud Computing</span>
+                    <span class="tag">Agile/Scrum</span>
+                    <span class="tag">Leadership</span>
+                `;
+                
+                // Update bio if laureat has one
+                if (userData.laureatProfile && userData.laureatProfile.bio) {
+                    document.getElementById('userBio').textContent = userData.laureatProfile.bio;
+                }
+                
+                // Populate professional data
+                if (userData.laureatProfile) {
+                    document.getElementById('professionalPosition').textContent = userData.laureatProfile.currentPosition;
+                    document.getElementById('professionalCompany').textContent = `${userData.laureatProfile.company} • ${userData.laureatProfile.city}, ${userData.laureatProfile.country}`;
+                    document.getElementById('companyName').textContent = userData.laureatProfile.company;
+                    document.getElementById('location').textContent = `${userData.laureatProfile.city}, ${userData.laureatProfile.country}`;
+                    document.getElementById('professionalEmail').textContent = userData.laureatProfile.professionalEmail;
+                    document.getElementById('expertise').textContent = userData.laureatProfile.expertise;
+                }
+            } else {
+                // Student view - show integration, hide professional
+                document.getElementById('professionalSection').style.display = 'none';
+                document.getElementById('integrationSection').style.display = 'block';
+                document.getElementById('visibilityBtn').style.display = 'none';
+            }
+        }
+
+        // Tab switching
+        function switchTab(index) {
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabPanels = document.querySelectorAll('.tab-panel');
+            
+            tabBtns.forEach(btn => btn.classList.remove('active'));
+            tabPanels.forEach(panel => panel.classList.remove('active'));
+            
+            tabBtns[index].classList.add('active');
+            tabPanels[index].classList.add('active');
+        }
+
+        // Toggle mentorship
+        function toggleMentorship() {
+            const toggle = document.querySelector('.toggle-switch');
+            toggle.classList.toggle('active');
+            
+            // Here you would send an API call to update the mentorship status
+            const isActive = toggle.classList.contains('active');
+            console.log('Mentorship available:', isActive);
+        }
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            initializeProfile();
+            
+            // Animate progress bar
+            setTimeout(() => {
+                const progressFill = document.querySelector('.integration-progress-fill');
+                if (progressFill) {
+                    const width = progressFill.style.width;
+                    progressFill.style.width = '0';
+                    setTimeout(() => {
+                        progressFill.style.width = width;
+                    }, 100);
+                }
+            }, 500);
+        });
+    </script>
+</body>
+</html>

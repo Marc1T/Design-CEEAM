@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifier le Profil - CEEAM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #172d45;
+            --primary-light: #1e3a5f;
+            --accent: #f59f24;
+            --accent-hover: #e08d15;
+            --success: #22c55e;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --border: #e2e8f0;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-primary);
+            line-height: 1.6;
+            background: var(--bg-main);
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        .logo-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 0.5rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            padding: 0.6rem 1.2rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: var(--bg-main);
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero-edit {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            padding: 2.5rem 1rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-edit::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-content p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: -2rem auto 0;
+            padding: 0 1rem 4rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Form Container */
+        .form-container {
+            background: white;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 2rem;
+        }
+
+        /* Avatar Section */
+        .avatar-section {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(23,45,69,0.03) 0%, rgba(245,159,36,0.03) 100%);
+            border-radius: 16px;
+            margin-bottom: 2.5rem;
+        }
+
+        .avatar-preview {
+            width: 140px;
+            height: 140px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin: 0 auto 1.5rem;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .avatar-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .avatar-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            padding: 0.5rem;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .avatar-preview:hover .avatar-overlay {
+            opacity: 1;
+        }
+
+        .avatar-upload-btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: var(--accent);
+            color: white;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .avatar-upload-btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        #avatarInput {
+            display: none;
+        }
+
+        /* Section Headers */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--bg-main);
+        }
+
+        .section-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .section-title {
+            flex: 1;
+        }
+
+        .section-title h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .section-title p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+        }
+
+        /* Form Grid */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-grid.full {
+            grid-template-columns: 1fr;
+        }
+
+        /* Form Groups */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .form-label .required {
+            color: var(--danger);
+            margin-left: 0.25rem;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(245, 159, 36, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-hint {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+            display: block;
+        }
+
+        /* Toggle Switch */
+        .toggle-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.25rem;
+            background: var(--bg-main);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+        }
+
+        .toggle-info h4 {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .toggle-info p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 32px;
+            background: var(--border);
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-switch.active {
+            background: var(--success);
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .toggle-switch.active .toggle-slider {
+            left: 32px;
+        }
+
+        /* Tags Input */
+        .tags-input-container {
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            padding: 0.75rem;
+            min-height: 60px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            cursor: text;
+            transition: all 0.3s ease;
+        }
+
+        .tags-input-container:focus-within {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(245, 159, 36, 0.1);
+        }
+
+        .tag-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.75rem;
+            background: var(--accent);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .tag-remove {
+            cursor: pointer;
+            font-weight: 700;
+            opacity: 0.8;
+            transition: opacity 0.2s ease;
+        }
+
+        .tag-remove:hover {
+            opacity: 1;
+        }
+
+        .tag-input {
+            border: none;
+            outline: none;
+            flex: 1;
+            min-width: 120px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.9rem;
+        }
+
+        /* Professional Section */
+        .professional-section {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(59, 130, 246, 0.1) 100%);
+            border: 2px solid rgba(59, 130, 246, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Alert Box */
+        .alert {
+            padding: 1rem 1.25rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .alert-info {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: var(--info);
+        }
+
+        .alert-icon {
+            font-size: 1.5rem;
+        }
+
+        /* Action Buttons */
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            padding-top: 2rem;
+            border-top: 2px solid var(--bg-main);
+        }
+
+        .btn {
+            padding: 0.875rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(245, 159, 36, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(245, 159, 36, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--text-primary);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-main);
+        }
+
+        .btn-danger {
+            background: white;
+            color: var(--danger);
+            border: 2px solid var(--danger);
+        }
+
+        .btn-danger:hover {
+            background: var(--danger);
+            color: white;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary);
+            color: white;
+            padding: 3rem 1rem 1.5rem;
+            margin-top: 4rem;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--accent);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.5rem;
+        }
+
+        .footer-logo-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .footer-description {
+            opacity: 0.8;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .footer-title {
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .hero-content h1 {
+                font-size: 1.6rem;
+            }
+
+            .form-container {
+                padding: 1.5rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-container {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="homepage.html" class="logo">
+                <div class="logo-icon">C</div>
+                <span class="logo-text">CEEAM</span>
+            </a>
+
+            <ul class="nav-menu">
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><a href="#" class="nav-link">Activités</a></li>
+                <li><a href="#" class="nav-link">Lauréats</a></li>
+                <li><a href="#" class="nav-link">École</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero-edit">
+        <div class="hero-content">
+            <h1>✏️ Modifier mon profil</h1>
+            <p>Mettez à jour vos informations personnelles et professionnelles</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <form id="profileForm" onsubmit="handleSubmit(event)">
+            <!-- Avatar Section -->
+            <div class="form-container">
+                <div class="avatar-section">
+                    <div class="avatar-preview" id="avatarPreview">
+                        YB
+                        <div class="avatar-overlay">Cliquer pour changer</div>
+                    </div>
+                    <label for="avatarInput" class="avatar-upload-btn">
+                        📷 Changer la photo
+                    </label>
+                    <input type="file" id="avatarInput" accept="image/*">
+                    <p class="form-hint" style="margin-top: 1rem;">Format recommandé: JPG, PNG (max 5MB)</p>
+                </div>
+            </div>
+
+            <!-- Personal Information -->
+            <div class="form-container">
+                <div class="section-header">
+                    <div class="section-icon">👤</div>
+                    <div class="section-title">
+                        <h2>Informations personnelles</h2>
+                        <p>Vos informations de base</p>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Prénom <span class="required">*</span></label>
+                        <input type="text" class="form-input" value="Youssef" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Nom <span class="required">*</span></label>
+                        <input type="text" class="form-input" value="Benkirane" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Email <span class="required">*</span></label>
+                        <input type="email" class="form-input" value="youssef.b@ensam.eu" required>
+                        <span class="form-hint">Votre email ENSAM officiel</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Téléphone</label>
+                        <input type="tel" class="form-input" value="+212 6 12 34 56 78">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Nationalité <span class="required">*</span></label>
+                        <select class="form-select" required>
+                            <option value="">Sélectionner...</option>
+                            <option value="MA" selected>🇲🇦 Maroc</option>
+                            <option value="DZ">🇩🇿 Algérie</option>
+                            <option value="TN">🇹🇳 Tunisie</option>
+                            <option value="SN">🇸🇳 Sénégal</option>
+                            <option value="CI">🇨🇮 Côte d'Ivoire</option>
+                            <option value="CM">🇨🇲 Cameroun</option>
+                            <option value="other">Autre...</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Langue préférée <span class="required">*</span></label>
+                        <select class="form-select" required>
+                            <option value="fr" selected>🇫🇷 Français</option>
+                            <option value="en">🇬🇧 English</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Biographie</label>
+                    <textarea class="form-textarea" placeholder="Parlez-nous de vous...">Étudiant passionné par l'innovation et la technologie. Membre actif de la CEEAM, j'aime participer aux activités et aider les nouveaux étudiants étrangers à s'intégrer.</textarea>
+                    <span class="form-hint">Décrivez-vous en quelques lignes (max 500 caractères)</span>
+                </div>
+            </div>
+
+            <!-- Academic Information -->
+            <div class="form-container">
+                <div class="section-header">
+                    <div class="section-icon">🎓</div>
+                    <div class="section-title">
+                        <h2>Informations académiques</h2>
+                        <p>Votre parcours à l'ENSAM</p>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Promotion <span class="required">*</span></label>
+                        <select class="form-select" required>
+                            <option value="">Sélectionner...</option>
+                            <option value="2023">2023</option>
+                            <option value="2024">2024</option>
+                            <option value="2025" selected>2025</option>
+                            <option value="2026">2026</option>
+                            <option value="2027">2027</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Filière <span class="required">*</span></label>
+                        <select class="form-select" required>
+                            <option value="">Sélectionner...</option>
+                            <option value="gim" selected>Génie Industriel et Mécanique</option>
+                            <option value="genie_energetique">Génie Énergétique</option>
+                            <option value="genie_mecanique">Génie Mécanique</option>
+                            <option value="genie_electrique">Génie Électrique</option>
+                            <option value="autre">Autre...</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Campus <span class="required">*</span></label>
+                        <select class="form-select" required>
+                            <option value="">Sélectionner...</option>
+                            <option value="paris" selected>Paris - Cluny</option>
+                            <option value="lille">Lille</option>
+                            <option value="bordeaux">Bordeaux</option>
+                            <option value="metz">Metz</option>
+                            <option value="aix">Aix-en-Provence</option>
+                            <option value="angers">Angers</option>
+                            <option value="chalons">Châlons-en-Champagne</option>
+                            <option value="cluny">Cluny</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">LinkedIn</label>
+                        <input type="url" class="form-input" value="linkedin.com/in/ybenkirane" placeholder="linkedin.com/in/votre-profil">
+                        <span class="form-hint">Votre profil LinkedIn professionnel</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Student Interests Section (Student only) -->
+            <div class="form-container" id="studentInterestsSection">
+                <div class="section-header">
+                    <div class="section-icon">🎯</div>
+                    <div class="section-title">
+                        <h2>Centres d'intérêt</h2>
+                        <p>Vos passions et activités préférées</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Mes centres d'intérêt</label>
+                    <div class="tags-input-container" id="interestsTags" onclick="focusTagInput('interests')">
+                        <span class="tag-item">⚽ Football <span class="tag-remove" onclick="removeTag(event, 'interests')">×</span></span>
+                        <span class="tag-item">🎮 Gaming <span class="tag-remove" onclick="removeTag(event, 'interests')">×</span></span>
+                        <span class="tag-item">💻 Programmation <span class="tag-remove" onclick="removeTag(event, 'interests')">×</span></span>
+                        <span class="tag-item">📚 Lecture <span class="tag-remove" onclick="removeTag(event, 'interests')">×</span></span>
+                        <input type="text" class="tag-input" id="interestsInput" placeholder="Ajouter un intérêt..." onkeypress="addTag(event, 'interests')">
+                    </div>
+                    <span class="form-hint">Appuyez sur Entrée pour ajouter un intérêt</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Je recherche actuellement</label>
+                    <div class="tags-input-container" id="searchingTags" onclick="focusTagInput('searching')">
+                        <span class="tag-item">🏠 Logement <span class="tag-remove" onclick="removeTag(event, 'searching')">×</span></span>
+                        <span class="tag-item">🚗 Covoiturage <span class="tag-remove" onclick="removeTag(event, 'searching')">×</span></span>
+                        <input type="text" class="tag-input" id="searchingInput" placeholder="Ajouter..." onkeypress="addTag(event, 'searching')">
+                    </div>
+                    <span class="form-hint">Ex: logement, covoiturage, partenaire de sport, etc.</span>
+                </div>
+            </div>
+
+            <!-- Professional Information (Laureat only) -->
+            <div class="professional-section" id="professionalSection" style="display: none;">
+                <div class="section-header">
+                    <div class="section-icon" style="background: linear-gradient(135deg, var(--info) 0%, #2563eb 100%);">💼</div>
+                    <div class="section-title">
+                        <h2>Informations professionnelles</h2>
+                        <p>Votre parcours professionnel après l'ENSAM</p>
+                    </div>
+                </div>
+
+                <div class="alert alert-info">
+                    <span class="alert-icon">ℹ️</span>
+                    <div>
+                        <strong>Section Lauréat</strong><br>
+                        Ces informations seront visibles par les étudiants actuels pour faciliter le networking et le mentorat.
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Poste actuel</label>
+                        <input type="text" class="form-input" value="Ingénieur Développement" placeholder="Ex: Ingénieur R&D">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Entreprise</label>
+                        <input type="text" class="form-input" value="Renault Group" placeholder="Ex: Airbus">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Pays</label>
+                        <select class="form-select">
+                            <option value="">Sélectionner...</option>
+                            <option value="FR" selected>🇫🇷 France</option>
+                            <option value="MA">🇲🇦 Maroc</option>
+                            <option value="DE">🇩🇪 Allemagne</option>
+                            <option value="UK">🇬🇧 Royaume-Uni</option>
+                            <option value="US">🇺🇸 États-Unis</option>
+                            <option value="CA">🇨🇦 Canada</option>
+                            <option value="other">Autre...</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Ville</label>
+                        <input type="text" class="form-input" value="Paris" placeholder="Ex: Lyon">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Email professionnel</label>
+                        <input type="email" class="form-input" value="youssef.benkirane@renault.com" placeholder="prenom.nom@entreprise.com">
+                        <span class="form-hint">Différent de votre email étudiant</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Domaine d'expertise</label>
+                    <input type="text" class="form-input" value="Développement logiciel, IA, Systèmes embarqués" placeholder="Ex: Aéronautique, Intelligence Artificielle, Finance">
+                    <span class="form-hint">Domaines dans lesquels vous pouvez aider les étudiants</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Biographie professionnelle</label>
+                    <textarea class="form-textarea" placeholder="Décrivez votre parcours professionnel...">Ingénieur passionné par l'innovation automobile et les systèmes embarqués. Je travaille sur les véhicules autonomes et l'intelligence artificielle.</textarea>
+                    <span class="form-hint">Votre parcours et vos expériences professionnelles</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Compétences professionnelles</label>
+                    <div class="tags-input-container" id="skillsTags" onclick="focusTagInput('skills')">
+                        <span class="tag-item">Python <span class="tag-remove" onclick="removeTag(event, 'skills')">×</span></span>
+                        <span class="tag-item">JavaScript <span class="tag-remove" onclick="removeTag(event, 'skills')">×</span></span>
+                        <span class="tag-item">Machine Learning <span class="tag-remove" onclick="removeTag(event, 'skills')">×</span></span>
+                        <span class="tag-item">Leadership <span class="tag-remove" onclick="removeTag(event, 'skills')">×</span></span>
+                        <input type="text" class="tag-input" id="skillsInput" placeholder="Ajouter une compétence..." onkeypress="addTag(event, 'skills')">
+                    </div>
+                    <span class="form-hint">Vos compétences techniques et soft skills</span>
+                </div>
+
+                <!-- Mentorship & Visibility Toggles -->
+                <div style="margin-top: 2rem;">
+                    <div class="toggle-group">
+                        <div class="toggle-info">
+                            <h4>🤝 Disponible pour mentorat</h4>
+                            <p>Accepter d'être contacté par les étudiants pour conseils et mentorat</p>
+                        </div>
+                        <div class="toggle-switch active" id="mentorshipToggle" onclick="toggleSwitch('mentorshipToggle')">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+
+                    <div class="toggle-group">
+                        <div class="toggle-info">
+                            <h4>👁️ Profil public</h4>
+                            <p>Rendre votre profil visible dans l'annuaire des lauréats</p>
+                        </div>
+                        <div class="toggle-switch active" id="visibilityToggle" onclick="toggleSwitch('visibilityToggle')">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Actions -->
+            <div class="form-container">
+                <div class="form-actions">
+                    <button type="button" class="btn btn-danger" onclick="if(confirm('Êtes-vous sûr de vouloir annuler ?')) window.location.href='view-profile.html'">
+                        ✕ Annuler
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="window.location.href='view-profile.html'">
+                        👁️ Voir le profil
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        💾 Enregistrer les modifications
+                    </button>
+                </div>
+            </div>
+        </form>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-logo">
+                        <div class="footer-logo-icon">C</div>
+                        <span class="footer-logo-text">CEEAM</span>
+                    </div>
+                    <p class="footer-description">
+                        Communauté des Étudiants Étrangers Arts & Métiers. 
+                        Nous accompagnons, fédérons et représentons les étudiants internationaux de l'ENSAM.
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="footer-title">Liens Rapides</h3>
+                    <ul class="footer-links">
+                        <li><a href="homepage.html">Accueil</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="#">Activités</a></li>
+                        <li><a href="#">Lauréats</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="footer-title">Ressources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Guides ENSAM</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Documents</a></li>
+                        <li><a href="#">Support</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="footer-title">Contact</h3>
+                    <p class="footer-description">
+                        <strong>Email:</strong><br>
+                        contact@ceeam.org<br><br>
+                        <strong>Campus ENSAM</strong><br>
+                        Paris, France
+                    </p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 CEEAM - Tous droits réservés</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // SIMULATION: User role (would come from backend)
+        const userRole = 'student'; // Change to 'laureat' to see professional fields
+
+        // Initialize form based on role
+        function initializeForm() {
+            const isLaureat = userRole === 'laureat';
+            
+            if (isLaureat) {
+                // Show professional section, hide student interests
+                document.getElementById('professionalSection').style.display = 'block';
+                document.getElementById('studentInterestsSection').style.display = 'none';
+            } else {
+                // Show student interests, hide professional
+                document.getElementById('professionalSection').style.display = 'none';
+                document.getElementById('studentInterestsSection').style.display = 'block';
+            }
+        }
+
+        // Avatar upload preview
+        document.getElementById('avatarInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const avatarPreview = document.getElementById('avatarPreview');
+                    avatarPreview.innerHTML = `<img src="${event.target.result}" alt="Avatar">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Tags management
+        function addTag(event, type) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                const input = document.getElementById(`${type}Input`);
+                const value = input.value.trim();
+                
+                if (value) {
+                    const container = document.getElementById(`${type}Tags`);
+                    const tag = document.createElement('span');
+                    tag.className = 'tag-item';
+                    tag.innerHTML = `${value} <span class="tag-remove" onclick="removeTag(event, '${type}')">×</span>`;
+                    
+                    container.insertBefore(tag, input);
+                    input.value = '';
+                }
+            }
+        }
+
+        function removeTag(event, type) {
+            event.stopPropagation();
+            event.target.parentElement.remove();
+        }
+
+        function focusTagInput(type) {
+            document.getElementById(`${type}Input`).focus();
+        }
+
+        // Toggle switches
+        function toggleSwitch(id) {
+            const toggle = document.getElementById(id);
+            toggle.classList.toggle('active');
+        }
+
+        // Form submission
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            // Here you would send data to backend
+            const formData = new FormData(event.target);
+            
+            // Show success message
+            alert('✅ Profil mis à jour avec succès !');
+            
+            // Redirect to profile view
+            // window.location.href = 'view-profile.html';
+        }
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', initializeForm);
+    </script>
+</body>
+</html>

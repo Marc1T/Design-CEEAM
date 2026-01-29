@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications - CEEAM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #172d45;
+            --primary-light: #1e3a5f;
+            --accent: #f59f24;
+            --accent-hover: #e08d15;
+            --success: #22c55e;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --border: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-primary);
+            line-height: 1.6;
+            background: var(--bg-main);
+        }
+
+        /* Header Navigation */
+        .header {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.75rem;
+            font-weight: 800;
+        }
+
+        .logo-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: 0.05em;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 0.5rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            padding: 0.75rem 1.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: var(--bg-main);
+            color: var(--primary);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .notification-btn {
+            position: relative;
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: var(--accent);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero-notifications {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            padding: 3rem 2rem;
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .hero-content h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: -2rem auto 0;
+            padding: 0 2rem 4rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-item {
+            background: white;
+            padding: 1.75rem;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+
+        .stat-value {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Notifications Container */
+        .notifications-card {
+            background: white;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+        }
+
+        /* Header */
+        .notifications-header {
+            padding: 2rem;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-main);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .header-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .btn-mark-all {
+            padding: 0.75rem 1.5rem;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .btn-mark-all:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(245,159,36,0.3);
+        }
+
+        /* Filters */
+        .filters {
+            display: flex;
+            gap: 0.75rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-secondary);
+        }
+
+        .filter-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .filter-btn.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .filter-count {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 0.15rem 0.5rem;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
+        }
+
+        /* Notifications List */
+        .notifications-list {
+            max-height: 800px;
+            overflow-y: auto;
+        }
+
+        .notification-item {
+            display: flex;
+            gap: 1.5rem;
+            padding: 1.75rem 2rem;
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+
+        .notification-item:hover {
+            background: var(--bg-main);
+        }
+
+        .notification-item.unread {
+            background: linear-gradient(135deg, rgba(245,159,36,0.05) 0%, rgba(23,45,69,0.02) 100%);
+        }
+
+        .notification-item.unread::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, var(--accent) 0%, #e08d15 100%);
+        }
+
+        .notification-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .notification-icon.activity {
+            background: linear-gradient(135deg, rgba(245,159,36,0.15) 0%, rgba(245,159,36,0.05) 100%);
+        }
+
+        .notification-icon.vote {
+            background: linear-gradient(135deg, rgba(23,45,69,0.15) 0%, rgba(23,45,69,0.05) 100%);
+        }
+
+        .notification-icon.message {
+            background: linear-gradient(135deg, rgba(34,197,94,0.15) 0%, rgba(34,197,94,0.05) 100%);
+        }
+
+        .notification-icon.system {
+            background: linear-gradient(135deg, rgba(59,130,246,0.15) 0%, rgba(59,130,246,0.05) 100%);
+        }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .notification-badges {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .badge-new {
+            background: var(--accent);
+            color: white;
+        }
+
+        .badge-urgent {
+            background: var(--danger);
+            color: white;
+        }
+
+        .notification-title {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.05rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .notification-message {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .notification-time {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .notification-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .action-btn {
+            padding: 0.625rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .action-btn.primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .action-btn.primary:hover {
+            background: var(--accent-hover);
+        }
+
+        .action-btn.secondary {
+            background: var(--bg-main);
+            color: var(--text-primary);
+            border: 2px solid var(--border);
+        }
+
+        .action-btn.secondary:hover {
+            border-color: var(--primary);
+        }
+
+        .notification-menu {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .menu-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: var(--bg-main);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .menu-btn:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.5;
+        }
+
+        .empty-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .empty-message {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: #0a0a0a;
+            color: white;
+            padding: 4rem 2rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            font-weight: 800;
+        }
+
+        .footer-logo-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        .footer-description {
+            color: rgba(255,255,255,0.7);
+            line-height: 1.8;
+        }
+
+        .footer-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .stats-bar {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .notification-item {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .notification-header {
+                flex-direction: column;
+            }
+
+            .notification-actions {
+                flex-direction: column;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .filters {
+                flex-wrap: wrap;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .notification-item {
+            animation: slideIn 0.4s ease forwards;
+        }
+
+        .notification-item:nth-child(1) { animation-delay: 0.05s; }
+        .notification-item:nth-child(2) { animation-delay: 0.1s; }
+        .notification-item:nth-child(3) { animation-delay: 0.15s; }
+        .notification-item:nth-child(4) { animation-delay: 0.2s; }
+        .notification-item:nth-child(5) { animation-delay: 0.25s; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="homepage.html" class="logo">
+                <div class="logo-icon">C</div>
+                <span class="logo-text">CEEAM</span>
+            </a>
+
+            <ul class="nav-menu">
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><a href="#" class="nav-link">Activités</a></li>
+                <li><a href="#" class="nav-link">Lauréats</a></li>
+                <li><a href="#" class="nav-link">École</a></li>
+            </ul>
+
+            <div class="header-actions">
+                <button class="notification-btn">
+                    🔔
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero-notifications">
+        <div class="hero-content">
+            <h1>Notifications 🔔</h1>
+            <p>Restez informé de toutes les activités importantes</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-value">12</div>
+                <div class="stat-label">Total</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">3</div>
+                <div class="stat-label">Non lues</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">5</div>
+                <div class="stat-label">Cette semaine</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">2</div>
+                <div class="stat-label">Urgentes</div>
+            </div>
+        </div>
+
+        <!-- Notifications Card -->
+        <div class="notifications-card">
+            <!-- Header -->
+            <div class="notifications-header">
+                <div class="header-top">
+                    <h2 class="header-title">Toutes les notifications</h2>
+                    <button class="btn-mark-all" onclick="markAllAsRead()">
+                        ✅ Tout marquer comme lu
+                    </button>
+                </div>
+
+                <!-- Filters -->
+                <div class="filters">
+                    <button class="filter-btn active" data-filter="all">
+                        Toutes <span class="filter-count">12</span>
+                    </button>
+                    <button class="filter-btn" data-filter="unread">
+                        Non lues <span class="filter-count">3</span>
+                    </button>
+                    <button class="filter-btn" data-filter="activity">
+                        Activités <span class="filter-count">4</span>
+                    </button>
+                    <button class="filter-btn" data-filter="vote">
+                        Votes <span class="filter-count">2</span>
+                    </button>
+                    <button class="filter-btn" data-filter="message">
+                        Messages <span class="filter-count">3</span>
+                    </button>
+                    <button class="filter-btn" data-filter="system">
+                        Système <span class="filter-count">3</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Notifications List -->
+            <div class="notifications-list">
+                <!-- Unread Notification 1 -->
+                <div class="notification-item unread" data-type="vote">
+                    <div class="notification-icon vote">🗳️</div>
+                    <div class="notification-content">
+                        <div class="notification-badges">
+                            <span class="badge badge-new">Nouveau</span>
+                        </div>
+                        <div class="notification-header">
+                            <div>
+                                <h3 class="notification-title">Nouvelle session de vote disponible</h3>
+                            </div>
+                        </div>
+                        <p class="notification-message">
+                            L'élection du bureau exécutif CEEAM 2025 est maintenant ouverte. Votez pour vos candidats préférés avant le 31 janvier 2025.
+                        </p>
+                        <div class="notification-time">
+                            ⏰ Il y a 2h
+                        </div>
+                        <div class="notification-actions">
+                            <button class="action-btn primary">Voter maintenant</button>
+                            <button class="action-btn secondary">Voir les candidats</button>
+                        </div>
+                    </div>
+                    <div class="notification-menu">
+                        <button class="menu-btn" title="Marquer comme lu">✓</button>
+                        <button class="menu-btn" title="Supprimer">×</button>
+                    </div>
+                </div>
+
+                <!-- Unread Notification 2 -->
+                <div class="notification-item unread" data-type="activity">
+                    <div class="notification-icon activity">🎉</div>
+                    <div class="notification-content">
+                        <div class="notification-badges">
+                            <span class="badge badge-urgent">Urgent</span>
+                        </div>
+                        <div class="notification-header">
+                            <div>
+                                <h3 class="notification-title">Atelier Entrepreneuriat - Inscriptions ouvertes</h3>
+                            </div>
+                        </div>
+                        <p class="notification-message">
+                            Ne manquez pas notre atelier d'entrepreneuriat le 15 février 2025 à 14h00. Places limitées, inscrivez-vous vite !
+                        </p>
+                        <div class="notification-time">
+                            ⏰ Il y a 5h
+                        </div>
+                        <div class="notification-actions">
+                            <button class="action-btn primary">S'inscrire</button>
+                            <button class="action-btn secondary">Plus d'infos</button>
+                        </div>
+                    </div>
+                    <div class="notification-menu">
+                        <button class="menu-btn" title="Marquer comme lu">✓</button>
+                        <button class="menu-btn" title="Supprimer">×</button>
+                    </div>
+                </div>
+
+                <!-- Unread Notification 3 -->
+                <div class="notification-item unread" data-type="message">
+                    <div class="notification-icon message">💬</div>
+                    <div class="notification-content">
+                        <div class="notification-header">
+                            <div>
+                                <h3 class="notification-title">Nouveau message de Ahmed K. (Promo 2020)</h3>
+                            </div>
+                        </div>
+                        <p class="notification-message">
+                            "Bonjour Youssef, je serais ravi d'échanger avec toi sur mon expérience chez Renault. N'hésite pas à me contacter."
+                        </p>
+                        <div class="notification-time">
+                            ⏰ Hier
+                        </div>
+                        <div class="notification-actions">
+                            <button class="action-btn primary">Répondre</button>
+                            <button class="action-btn secondary">Voir le profil</button>
+                        </div>
+                    </div>
+                    <div class="notification-menu">
+                        <button class="menu-btn" title="Marquer comme lu">✓</button>
+                        <button class="menu-btn" title="Supprimer">×</button>
+                    </div>
+                </div>
+
+                <!-- Read Notification 1 -->
+                <div class="notification-item" data-type="system">
+                    <div class="notification-icon system">ℹ️</div>
+                    <div class="notification-content">
+                        <div class="notification-header">
+                            <div>
+                                <h3 class="notification-title">Mise à jour de la plateforme</h3>
+                            </div>
+                        </div>
+                        <p class="notification-message">
+                            Nouvelle fonctionnalité : vous pouvez maintenant exporter votre profil en PDF depuis les paramètres.
+                        </p>
+                        <div class="notification-time">
+                            ⏰ Il y a 2 jours
+                        </div>
+                    </div>
+                    <div class="notification-menu">
+                        <button class="menu-btn" title="Supprimer">×</button>
+                    </div>
+                </div>
+
+                <!-- Read Notification 2 -->
+                <div class="notification-item" data-type="system">
+                    <div class="notification-icon system">⚙️</div>
+                    <div class="notification-content">
+                        <div class="notification-header">
+                            <div>
+                                <h3 class="notification-title">Profil complété à 100%</h3>
+                            </div>
+                        </div>
+                        <p class="notification-message">
+                            Félicitations ! Votre profil est maintenant complet. Les lauréats peuvent désormais vous contacter facilement.
+                        </p>
+                        <div class="notification-time">
+                            ⏰ Il y a 5 jours
+                        </div>
+                    </div>
+                    <div class="notification-menu">
+                        <button class="menu-btn" title="Supprimer">×</button>
+                    </div>
+                </div>
+
+                <!-- Read Notification 3 -->
+                <div class="notification-item" data-type="activity">
+                    <div class="notification-icon activity">📅</div>
+                    <div class="notification-content">
+                        <div class="notification-header">
+                            <div>
+                                <h3 class="notification-title">Rappel : Networking Lauréats demain</h3>
+                            </div>
+                        </div>
+                        <p class="notification-message">
+                            L'événement de networking avec les lauréats aura lieu demain à 18h30. N'oubliez pas de confirmer votre présence.
+                        </p>
+                        <div class="notification-time">
+                            ⏰ Il y a 1 semaine
+                        </div>
+                        <div class="notification-actions">
+                            <button class="action-btn secondary">Ajouter au calendrier</button>
+                        </div>
+                    </div>
+                    <div class="notification-menu">
+                        <button class="menu-btn" title="Supprimer">×</button>
+                    </div>
+                </div>
+
+                <!-- Read Notification 4 -->
+                <div class="notification-item" data-type="vote">
+                    <div class="notification-icon vote">📊</div>
+                    <div class="notification-content">
+                        <div class="notification-header">
+                            <div>
+                                <h3 class="notification-title">Résultats du vote publiés</h3>
+                            </div>
+                        </div>
+                        <p class="notification-message">
+                            Les résultats de l'élection du délégué de promotion sont maintenant disponibles. Consultez les résultats détaillés.
+                        </p>
+                        <div class="notification-time">
+                            ⏰ Il y a 2 semaines
+                        </div>
+                        <div class="notification-actions">
+                            <button class="action-btn secondary">Voir les résultats</button>
+                        </div>
+                    </div>
+                    <div class="notification-menu">
+                        <button class="menu-btn" title="Supprimer">×</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-logo">
+                        <div class="footer-logo-icon">C</div>
+                        <span class="footer-logo-text">CEEAM</span>
+                    </div>
+                    <p class="footer-description">
+                        Communauté des Étudiants Étrangers Arts & Métiers. 
+                        Nous accompagnons, fédérons et représentons les étudiants internationaux de l'ENSAM.
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="footer-title">Liens Rapides</h3>
+                    <ul class="footer-links">
+                        <li><a href="homepage.html">Accueil</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="#">Activités</a></li>
+                        <li><a href="#">Lauréats</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="footer-title">Ressources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Guides ENSAM</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Documents</a></li>
+                        <li><a href="#">Support</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="footer-title">Contacts</h3>
+                    <p class="footer-description">
+                        <strong>Email:</strong><br>
+                        contact@ceeam-ensam.fr<br><br>
+                        <strong>Campus ENSAM</strong><br>
+                        Paris, France
+                    </p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 CEEAM - ENSAM. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const notifications = document.querySelectorAll('.notification-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const filter = this.dataset.filter;
+                
+                filterBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                notifications.forEach(notif => {
+                    if (filter === 'all') {
+                        notif.style.display = 'flex';
+                    } else if (filter === 'unread') {
+                        notif.style.display = notif.classList.contains('unread') ? 'flex' : 'none';
+                    } else {
+                        notif.style.display = notif.dataset.type === filter ? 'flex' : 'none';
+                    }
+                });
+            });
+        });
+
+        // Mark as read
+        document.querySelectorAll('.notification-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                if (!e.target.closest('.menu-btn') && !e.target.closest('.action-btn')) {
+                    this.classList.remove('unread');
+                    updateCounts();
+                }
+            });
+        });
+
+        // Mark all as read
+        function markAllAsRead() {
+            notifications.forEach(notif => {
+                notif.classList.remove('unread');
+            });
+            updateCounts();
+        }
+
+        // Update counts
+        function updateCounts() {
+            const unreadCount = document.querySelectorAll('.notification-item.unread').length;
+            document.querySelectorAll('.filter-count')[1].textContent = unreadCount;
+            
+            // Update stat
+            document.querySelectorAll('.stat-value')[1].textContent = unreadCount;
+        }
+
+        // Delete notification
+        document.querySelectorAll('.menu-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (this.title === 'Supprimer') {
+                    const notif = this.closest('.notification-item');
+                    notif.style.animation = 'slideOut 0.3s ease forwards';
+                    setTimeout(() => {
+                        notif.remove();
+                        updateCounts();
+                    }, 300);
+                } else if (this.title === 'Marquer comme lu') {
+                    this.closest('.notification-item').classList.remove('unread');
+                    updateCounts();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
